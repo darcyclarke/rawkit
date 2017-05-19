@@ -1,0 +1,11 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": "standard",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
+}
