@@ -4,6 +4,10 @@
 
 **rawkit** grabs the chrome inspector URL returned from the `node --inspect` command and immediately opens devtools. No more *clicking*, *selecting*, *copying*/*pasting* or *navigating*. Just run the command and jump into debugging.
 
+## [Currently In-Development]
+
+Proof-of-concept is working, polish, tests and some other tweaks should be ready soon. Clone, fork or install at your own risk.
+
 ### Installation
 
 ```bash
