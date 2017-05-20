@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "rawkit - open devtools with node --inspect",
+  "description": "",
+  "version": "1.0",
+  "background": {
+    "scripts": [
+      "app.js"
+    ]
+  },
+  "browser_action": {
+    "name": "listens for $ node --inspect",
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}

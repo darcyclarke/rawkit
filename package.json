@@ -25,7 +25,9 @@
     "eslint-plugin-standard": "3.0.1",
     "mocha": "3.4.1",
     "pre-git": "3.14.0",
-    "yargs": "8.0.1"
+    "chai": "3.5.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-node": "4.2.2"
   },
   "keywords": [
     "profile",

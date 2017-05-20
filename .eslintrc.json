@@ -7,5 +7,8 @@
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6
+  },
+  "rules": {
+    "no-useless-escape": 0
   }
 }
