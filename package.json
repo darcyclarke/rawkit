@@ -5,9 +5,7 @@
   "files": [
     "cli.js"
   ],
-  "bin": {
-    "rawkit": "index.js"
-  },
+  "bin": "./index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "lint": "eslint .",
