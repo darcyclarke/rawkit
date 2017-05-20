@@ -35,9 +35,7 @@ First off, big shout out to ["Will"](https://june07.com) who made [NiM](https://
 
 **rawkit** is probably closest to NiM in that it works with the native (although semi-experimental) `node --inspect` feature. I reminice over the days of [node-inspector](https://www.npmjs.com/package/node-inspector), [node-debugger](https://atom.io/packages/node-debugger), [devtool](https://www.npmjs.com/package/devtool) and even [nodemon](https://www.npmjs.com/package/nodemon), to some extent, as they've fallen out of my daily usage. That said, `--inspect` alone isn't going to cut the cheese. **rawkit** gets us back to a simple and straightforward workflow. Less options. More command line. Faster path to the developer tools you know and love.
 
-`rawkit server.js`
-
-## Discovery
+## Resources
 
 #### Interesting command line flags for chrome:
 

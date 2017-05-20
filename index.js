@@ -9,8 +9,7 @@
   const port = argv.port || 1337
 
   let args = process.argv.splice(2, process.argv.length).join(' ')
-  let cmd = `node --inspect ${args}`
-  let child = exec(cmd, { shell: true })
+  let child = exec(`node --inspect ${args}`, { shell: true })
   let search = true
 
   server.on('request', (req, res) => {
@@ -30,7 +29,6 @@
   function handle (data) {
     let link = parse(data)
     if (search && link) {
-      console.log(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`)
       opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: ['google chrome canary'], wait: false }).then(() => {
         console.log('opened!')
       })
