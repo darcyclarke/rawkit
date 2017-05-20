@@ -3,6 +3,10 @@
   "version": "1.0.2",
   "description": "Open chrome devtools debugger",
   "main": "./index.js",
+  "bin": "cli.js",
+  "files": [
+    "index.js"
+  ],
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "lint": "eslint .",

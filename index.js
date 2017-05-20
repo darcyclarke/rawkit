@@ -45,6 +45,4 @@ child.stderr.on('data', handle)
 child.on('close', _ => process.exit())
 process.on('exit', _ => child.kill())
 
-module.export = {
-  handle: handle
-}
+module.exports = () => {}
