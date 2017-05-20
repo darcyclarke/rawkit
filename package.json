@@ -2,7 +2,12 @@
   "name": "rawkit",
   "version": "1.0.1",
   "description": "Open chrome devtools debugger",
-  "main": "index.js",
+  "files": [
+    "cli.js"
+  ],
+  "bin": {
+    "rawkit": "index.js"
+  },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "lint": "eslint .",

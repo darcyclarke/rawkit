@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+'use strict'
+
 const fs = require('fs')
 const opn = require('opn')
 const argv = require('yargs').argv
