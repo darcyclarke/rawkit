@@ -1,12 +1,21 @@
 {
   "manifest_version": 2,
-  "name": "rawkit - open devtools with node --inspect",
-  "description": "",
+  "name": "rawkit",
+  "author": "Darcy Clarke <darcy@darcyclarke.me>",
+  "description": "Instantly open Chrome Inspector with the node --inspect flag",
   "version": "1.0",
+  "homepage_url": "https://github.com/darcyclarke/rawkit",
+  "incognito": "spanning",
+  "offline_enabled": true,
   "background": {
     "scripts": [
       "app.js"
     ]
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
   },
   "browser_action": {
     "name": "listens for $ node --inspect",
