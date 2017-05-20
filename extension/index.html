@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rawkit</title>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/inline-manual-authoring-t/leiejllaoknebomjeebdjfeicdaaeijp?hl=en">
+    <style type="text/css">
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: white;
+      }
+      .dot1, .dot2, .dot3, .dot4{
+        width: 40px;
+        height: 40px;
+        background: #4285f4;
+        margin-left: 40%;
+        margin-top: 200px;
+        float: left;
+        border-radius: 20px;
+        animation-name: blue;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        transform-origin: center;
+      }
+
+      .dot2{
+        margin-left: 25px;
+        background: #EA4335;
+        animation-name: red;
+      }
+
+      .dot3{
+        margin-left: 25px;
+        background: #FBBC05;
+        animation-name: yellow;
+      }
+      .dot4{
+        margin-left: 25px;
+        background: #34A853;
+        animation-name: green;
+      }
+
+      @keyframes blue{
+        0% {
+          transform: translate(0px, 0px);
+        }
+        30% {
+          transform: translate(0px, -13px);
+        }
+        100%{
+          transform: translate(0px, 0px);
+      }
+      }
+
+      @keyframes red{
+        0% {
+          transform: translate(0px, 0px);
+        }
+
+        40% {
+          transform: translate(0px, -13px);
+        }
+
+        100%{
+          transform: translate(0px, 0px);
+      }
+      }
+
+      @keyframes yellow{
+        0% {
+          transform: translate(0px, 0px);
+        }
+
+        50% {
+          transform: translate(0px, -13px);
+        }
+
+        100%{
+          transform: translate(0px, 0px);
+      }
+      }
+
+      @keyframes green{
+        0% {
+          transform: translate(0px, 0px);
+        }
+
+        60% {
+          transform: translate(0px, -13px);
+        }
+
+        100%{
+          transform: translate(0px, 0px);
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dot1"></div>
+    <div class="dot2"></div>
+    <div class="dot3"></div>
+    <div class="dot4"></div>
+    <button onclick="chrome.webstore.install()" id="install-button">Add rawkit to Chrome</button>
+    <script type="text/javascript">
+    if (chrome.app.isInstalled) {
+      document.getElementById('install-button').style.display = 'none';
+    }
+    </script>
+  </body>
+</html>
