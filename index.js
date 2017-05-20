@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-'use strict'
 
 const fs = require('fs')
 const opn = require('opn')
@@ -10,9 +9,9 @@ const http = require('http')
 const server = http.createServer()
 const port = argv.port || 1337
 
-let args = process.argv.splice(2, process.argv.length).join(' ')
-let child = exec(`node --inspect ${args}`, { shell: true })
-let search = true
+var args = process.argv.splice(2, process.argv.length).join(' ')
+var child = exec(`node --inspect ${args}`, { shell: true })
+var search = true
 
 server.on('request', (req, res) => {
   fs.readFile('./extension/index.html', 'utf8', (err, data) => {
