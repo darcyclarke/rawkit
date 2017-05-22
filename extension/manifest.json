@@ -3,7 +3,7 @@
   "name": "rawkit",
   "author": "Darcy Clarke <darcy@darcyclarke.me>",
   "description": "rawkit grabs the chrome inspector URL returned from the node --inspect command and immediately opens devtools. No more clicking, selecting, copying/pasting or navigating. Just run the command and jump into debugging.",
-  "version": "1.0",
+  "version": "1.0.0",
   "homepage_url": "https://github.com/darcyclarke/rawkit",
   "incognito": "spanning",
   "offline_enabled": true,
@@ -13,12 +13,11 @@
     ]
   },
   "icons": {
-    "16": "icon-16.jpg",
-    "48": "icon-48.jpg",
-    "128": "icon-128.jpg"
+    "16": "icon-16.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
   },
   "browser_action": {
-    "name": "listens for $ node --inspect",
     "default_icon": "icon-128-box.png"
   },
   "permissions": [

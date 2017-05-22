@@ -30,9 +30,7 @@ function parse (str) {
 function handle (data) {
   let link = parse(data)
   if (search && link) {
-    opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: ['google chrome canary'], wait: false }).then(() => {
-      console.log('rawkit...')
-    })
+    opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: ['google chrome canary'], wait: false }).then(() => {})
     search = false
   }
   process.stdout.write(data)

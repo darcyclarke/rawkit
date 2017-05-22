@@ -12,14 +12,11 @@ function parse (url) {
 }
 
 chrome.tabs.onCreated.addListener(function () {
-  console.log('created a new tab!')
   chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
     var url = tabs[0].url
     var link = parse(url)
     var parent = tabs[0].id
-    console.log('url', url)
     if (!isCore(url) && link) {
-      console.log('wooot! devtools', decodeURIComponent(link))
       chrome.tabs.query({}, function (tabs) {
         let id = null
         for (let i = chrome.tabs.length - 1; i >= 0; i--) {
