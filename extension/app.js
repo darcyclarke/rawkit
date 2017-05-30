@@ -1,4 +1,4 @@
-/* global chrome, InspectorFrontendHost */
+/* global chrome */
 
 console.log('listening...')
 
