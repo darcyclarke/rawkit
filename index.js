@@ -1,17 +1,31 @@
 #!/usr/bin/env node
+'use strict'
 
 const fs = require('fs')
 const opn = require('opn')
-const argv = require('yargs').argv
-const exec = require('child_process').exec
 const http = require('http')
-
+const exec = require('child_process').exec
+const yargs = require('yargs')
 const server = http.createServer()
-const port = argv.port || 1337
 
-var args = process.argv.splice(2, process.argv.length).join(' ')
-var child = exec(`node --inspect ${args}`, { shell: true })
-var search = true
+let argv = yargs
+  .version()
+  .usage('rawkit [options] <file ...>')
+  .option('port', {
+    alias: 'p',
+    describe: 'Define a specific port to run the proxy server on. Defaults to 1337.'
+  })
+  .option('canary', {
+    alias: 'c',
+    describe: 'If you want to run the devtools in canary.'
+  })
+  .argv
+
+const browser = `google chrome ${argv.canary ? 'canary' : ''}`.trim()
+const port = argv.port || 1337
+const args = argv._.splice(2, argv._.length).join(' ')
+const child = exec(`node --inspect ${args}`, { shell: true })
+var caught = false
 
 server.on('request', (req, res) => {
   fs.readFile('./extension/index.html', 'utf8', (err, data) => {
@@ -29,9 +43,9 @@ function parse (str) {
 
 function handle (data) {
   let link = parse(data)
-  if (search && link) {
-    opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: ['google chrome canary'], wait: false }).then(() => {})
-    search = false
+  if (!caught && link) {
+    opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: [ browser ], wait: false }).then(() => {})
+    caught = true
   }
   process.stdout.write(data)
 }

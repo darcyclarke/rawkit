@@ -1,4 +1,4 @@
-/* global chrome */
+/* global chrome, InspectorFrontendHost */
 
 console.log('listening...')
 
@@ -10,6 +10,10 @@ function parse (url) {
   var matches = url.match(/rawkit=([^&#=]*)/gi)
   return (matches) ? matches[0].replace('rawkit=', '') : null
 }
+
+chrome.browserAction.onClicked.addListener(function (tab) {
+  chrome.tabs.create({ url: 'chrome-devtools://devtools/bundled/inspector.html?nodeFrontend=true&v8only=true&dockSide=undocked&experiments=true' })
+})
 
 chrome.tabs.onCreated.addListener(function () {
   chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {

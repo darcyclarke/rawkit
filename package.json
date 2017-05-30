@@ -66,6 +66,6 @@
   },
   "dependencies": {
     "opn": "5.0.0",
-    "yargs": "^8.0.1"
+    "yargs": "8.0.1"
   }
 }

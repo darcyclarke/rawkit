@@ -24,6 +24,7 @@
     "activeTab",
     "tabs",
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "experimental"
   ]
 }
