@@ -44,7 +44,16 @@ function parse (str) {
 function handle (data) {
   let link = parse(data)
   if (!caught && link) {
-    opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: [ browser ], wait: false }).then(() => {})
+    opn(
+      `http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`,
+      {
+        app: [ browser ],
+        wait: false
+      }
+    )
+    .then(() => {})
+    .catch((e) => {})
+
     caught = true
   }
   process.stdout.write(data)
