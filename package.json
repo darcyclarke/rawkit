@@ -7,7 +7,7 @@
     "./index.js"
   ],
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "mocha --compilers js:babel-core/register ./test/**.test.js",
     "lint": "eslint .",
     "admin": "node ./scripts/admin.js"
   },
