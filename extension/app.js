@@ -11,6 +11,10 @@ function parse (url) {
   return (matches) ? matches[0].replace('rawkit=', '') : null
 }
 
+chrome.browserAction.onClicked.addListener(function (tab) {
+  chrome.tabs.create({ url: 'chrome-devtools://devtools/bundled/inspector.html?nodeFrontend=true&v8only=true&dockSide=undocked&experiments=true' })
+})
+
 chrome.tabs.onCreated.addListener(function () {
   chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
     var url = tabs[0].url
