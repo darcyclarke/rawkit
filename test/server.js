@@ -2,6 +2,8 @@
 const http = require('http')
 const server = http.createServer()
 
+console.log('hello')
+
 server.on('request', (req, res) => {
   console.log('request', req)
   res.end('server is running...')

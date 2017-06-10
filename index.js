@@ -8,6 +8,8 @@ const exec = require('child_process').exec
 const yargs = require('yargs')
 const server = http.createServer()
 
+// https://developers.google.com/web/updates/2017/04/headless-chrome?utm_campaign=chrome_series_headlesschrome_060517&utm_source=chromedev&utm_medium=yt-desc
+
 let argv = yargs
   .version()
   .usage('rawkit [options] <file ...>')
@@ -17,7 +19,15 @@ let argv = yargs
   })
   .option('canary', {
     alias: 'c',
-    describe: 'If you want to run the devtools in canary.'
+    describe: 'Run the devtools in canary.'
+  })
+  .option('no-prompt', {
+    alias: 'np',
+    describe: 'Disable the automatic opening of the browser'
+  })
+  .option('silent', {
+    alias: 's',
+    describe: 'Hide stdout/stderr output from child process'
   })
   .argv
 
@@ -43,11 +53,13 @@ function parse (str) {
 
 function handle (data) {
   let link = parse(data)
-  if (!caught && link) {
+  if (!caught && link && !argv['no-prompt']) {
     opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: [ browser ], wait: false }).then(() => {})
     caught = true
   }
-  process.stdout.write(data)
+  if (!argv.silent) {
+    process.stdout.write(data)
+  }
 }
 
 child.stdout.on('data', handle)

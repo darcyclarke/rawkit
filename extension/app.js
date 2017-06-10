@@ -30,11 +30,10 @@ chrome.tabs.onCreated.addListener(function () {
           }
         }
         if (!id) {
-          chrome.tabs.create({ url: decodeURIComponent(link) })
+          chrome.tabs.update(parent, { url: decodeURIComponent(link) })
         } else {
           chrome.tabs.update(id, {selected: true})
         }
-        chrome.tabs.remove(parent)
       })
     }
   })
