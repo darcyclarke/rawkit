@@ -6,7 +6,7 @@
     "rawkit": "./index.js"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "mocha --compilers js:babel-core/register ./test/**.test.js",
     "lint": "eslint .",
     "admin": "node ./scripts/admin.js"
   },
@@ -65,7 +65,7 @@
     }
   },
   "dependencies": {
-    "opn": "5.0.0",
+    "opn": "5.1.0",
     "yargs": "8.0.1"
   }
 }
