@@ -39,31 +39,10 @@ let argv = yargs
   })
   .argv
 
-if (argv.headless) {
-  process.stdout.write(caution)
-  return chrome.launch({
-    port: 9222,
-    chromeFlags: [
-      '--window-size=412,732',
-      '--disable-gpu',
-      '--headless'
-    ]
-  })
-}
-
+let caught = false
 const browser = `google chrome ${argv.canary ? 'canary' : ''}`.trim()
 const port = argv.port || 1337
 const args = argv._.splice(2, argv._.length).join(' ')
-const child = exec(`node --inspect ${args}`, { shell: true })
-var caught = false
-
-server.on('request', (req, res) => {
-  fs.readFile('./extension/index.html', 'utf8', (err, data) => {
-    if (err) throw err
-    res.writeHead(200, { 'Content-Type': 'text/html' })
-    res.end(data)
-  })
-}).listen(port)
 
 function parse (str) {
   let re = /\schrome-devtools[^\s]*|^chrome-devtools[^\s]*/gi
@@ -74,7 +53,15 @@ function parse (str) {
 function handle (data) {
   let link = parse(data)
   if (!caught && link && !argv['no-prompt']) {
-    opn(`http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`, { app: [ browser ], wait: false }).then(() => {})
+    opn(
+      `http://localhost:${port}/?rawkit=${encodeURIComponent(link)}`,
+      {
+        app: [ browser ],
+        wait: false
+      }
+    )
+    .then(() => {})
+    .catch((e) => {})
     caught = true
   }
   if (!argv.silent) {
@@ -82,10 +69,29 @@ function handle (data) {
   }
 }
 
-child.stdout.on('data', handle)
-child.stderr.on('data', handle)
+if (argv.headless) {
+  process.stdout.write(caution)
+  chrome.launch({
+    port: 9222,
+    chromeFlags: [
+      '--window-size=412,732',
+      '--disable-gpu',
+      '--headless'
+    ]
+  })
+} else {
+  const child = exec(`node --inspect ${args}`, { shell: true })
+  server.on('request', (req, res) => {
+    fs.readFile('./extension/index.html', 'utf8', (err, data) => {
+      if (err) throw err
+      res.writeHead(200, { 'Content-Type': 'text/html' })
+      res.end(data)
+    })
+  }).listen(port)
 
-child.on('close', _ => process.exit())
-process.on('exit', _ => child.kill())
+  child.stdout.on('data', handle)
+  child.stderr.on('data', handle)
 
-module.exports = () => {}
+  child.on('close', _ => process.exit())
+  process.on('exit', _ => child.kill())
+}
