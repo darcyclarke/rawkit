@@ -74,3 +74,13 @@ $ /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ...
 ```bash
 $ ... --app="data:text/html,<html><body><script>window.moveTo(0,0);window.resizeTo(800,600);</script></body></html>"
 ```
+
+## TODO
+- headless?
+- command line help/definitions
+- automated extension bundling/versioning
+- tests (passing)
+- update google extension profile (screenshots + video + icon)
+- update readme (screenshots + video/gif + icon)
+- update npm package
+- update extension
