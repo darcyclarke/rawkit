@@ -76,11 +76,8 @@ $ ... --app="data:text/html,<html><body><script>window.moveTo(0,0);window.resize
 ```
 
 ## TODO
-- headless?
-- command line help/definitions
+- allow headless?
+  - investigate utilizing lighthouse's chrome-launcher
+  - https://developers.google.com/web/updates/2017/04/headless-chrome?utm_campaign=chrome_series_headlesschrome_060517&utm_source=chromedev&utm_medium=yt-desc
 - automated extension bundling/versioning
-- tests (passing)
 - update google extension profile (screenshots + video + icon)
-- update readme (screenshots + video/gif + icon)
-- update npm package
-- update extension

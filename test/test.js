@@ -1,5 +1,7 @@
-/* global describe, it, expect */
-import rawkit from '../index'
+/* global describe, it */
+
+import rawkit from '../bin/cli'
+import { expect } from 'chai'
 
 describe('rawkit', () => {
   it('should exist', () => {
