@@ -39,20 +39,23 @@ let argv = yargs
   })
   .argv
 
+if (argv.headless) {
+  process.stdout.write(caution)
+  return chrome.launch({
+    port: 9222,
+    chromeFlags: [
+      '--window-size=412,732',
+      '--disable-gpu',
+      '--headless'
+    ]
+  })
+}
+
 const browser = `google chrome ${argv.canary ? 'canary' : ''}`.trim()
 const port = argv.port || 1337
 const args = argv._.splice(2, argv._.length).join(' ')
 const child = exec(`node --inspect ${args}`, { shell: true })
 var caught = false
-
-chrome.launch({
-  port: 9222,
-  chromeFlags: [
-    '--window-size=412,732',
-    '--disable-gpu',
-    '--headless'
-  ]
-})
 
 server.on('request', (req, res) => {
   fs.readFile('./extension/index.html', 'utf8', (err, data) => {

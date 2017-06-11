@@ -66,6 +66,7 @@
     }
   },
   "dependencies": {
+    "lighthouse": "^2.1.0",
     "opn": "5.0.0",
     "yargs": "8.0.1"
   }
