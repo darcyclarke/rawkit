@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "rawkit",
   "author": "Darcy Clarke <darcy@darcyclarke.me>",
-  "description": "rawkit grabs the chrome inspector URL returned from the node --inspect command and immediately opens devtools. No more clicking, selecting, copying/pasting or navigating. Just run the command and jump into debugging.",
+  "description": "Open the node.js devtools from the command-line; no more clicking, selecting or copy & pasting.",
   "version": "1.0.0",
   "homepage_url": "https://github.com/darcyclarke/rawkit",
   "incognito": "spanning",

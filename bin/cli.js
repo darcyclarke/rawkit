@@ -7,7 +7,7 @@ const http = require('http')
 const exec = require('child_process').exec
 const yargs = require('yargs')
 
-module.exports = class {
+class CLI {
   constructor (args) {
     this.parseArguments(args)
     this.port = this.args.port || 1337
@@ -46,7 +46,7 @@ module.exports = class {
         alias: 'e',
         describe: 'Define a specific port to run the extension server on. Defaults to 9223.'
       })
-      .parse(args)
+      .parse(args, process)
   }
 
   parseURL (str) {
@@ -58,8 +58,8 @@ module.exports = class {
   exec () {
     let args = this.args._.splice(2, this.args._.length).join(' ')
     this.child = exec(`node --inspect ${args}`, { shell: true })
-    this.child.stdout.on('data', this.handle)
-    this.child.stderr.on('data', this.handle)
+    this.child.stdout.on('data', this.handle.bind(this))
+    this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
     process.on('exit', _ => this.child.kill())
   }
@@ -96,4 +96,8 @@ module.exports = class {
       })
     }).listen(this.port)
   }
+}
+
+module.exports = (args) => {
+  return new CLI(args)
 }

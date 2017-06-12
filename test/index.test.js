@@ -1,10 +1,28 @@
-/* global describe, it */
+/* global describe, it, beforeEach */
 
-import rawkit from '../bin/cli'
-import { expect } from 'chai'
+const rawkit = require('../bin/cli')
+const expect = require('chai').expect
+const file = './server.js'
 
 describe('rawkit', () => {
-  it('should exist', () => {
-    expect(rawkit).to.not.equal(null)
+  it('should parse arguments', () => {
+
+  })
+
+  it('should start an extension server', () => {
+
+  })
+
+  it('should start a node child process', () => {
+
+  })
+
+  it('should detect url', () => {
+
+  })
+
+  it('should parse url', () => {
+    let r = rawkit(['--test', 'args'])
+    expect(r.args.test).to.equal('args')
   })
 })

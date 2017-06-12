@@ -578,12 +578,6 @@ balanced-match@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"
 
-bdd-stdin:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/bdd-stdin/-/bdd-stdin-0.2.0.tgz#04e66aa480e0e0df861e288a4062fb8557db2441"
-  dependencies:
-    mock-stdin "0.3.0"
-
 bluebird@2.9.24:
   version "2.9.24"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-2.9.24.tgz#14a2e75f0548323dc35aa440d92007ca154e967c"
@@ -639,6 +633,10 @@ camelcase@^1.0.2:
 camelcase@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
+
+camelcase@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 camelcase@^4.1.0:
   version "4.1.0"
@@ -950,15 +948,15 @@ conventional-commits-parser@^1.0.0, conventional-commits-parser@^1.0.1:
     through2 "^2.0.0"
     trim-off-newlines "^1.0.0"
 
-conventional-recommended-bump@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-recommended-bump/-/conventional-recommended-bump-1.0.0.tgz#6d303a27837ae938b7c68c8ddeed34559b4b0789"
+conventional-recommended-bump@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/conventional-recommended-bump/-/conventional-recommended-bump-0.3.0.tgz#e839de8f57cbb43445c8b4967401de0644c425d8"
   dependencies:
     concat-stream "^1.4.10"
     conventional-commits-filter "^1.0.0"
     conventional-commits-parser "^1.0.1"
-    git-raw-commits "^1.2.0"
-    git-semver-tags "^1.2.0"
+    git-latest-semver-tag "^1.0.0"
+    git-raw-commits "^1.0.0"
     meow "^3.3.0"
     object-assign "^4.0.1"
 
@@ -1476,7 +1474,14 @@ ggit@1.15.1:
     quote "0.4.0"
     ramda "0.9.1"
 
-git-raw-commits@^1.2.0:
+git-latest-semver-tag@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/git-latest-semver-tag/-/git-latest-semver-tag-1.0.2.tgz#061130cbf4274111cc6be4612b3ff3a6d93e2660"
+  dependencies:
+    git-semver-tags "^1.1.2"
+    meow "^3.3.0"
+
+git-raw-commits@^1.0.0, git-raw-commits@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/git-raw-commits/-/git-raw-commits-1.2.0.tgz#0f3a8bfd99ae0f2d8b9224d58892975e9a52d03c"
   dependencies:
@@ -1493,7 +1498,7 @@ git-remote-origin-url@^2.0.0:
     gitconfiglocal "^1.0.0"
     pify "^2.3.0"
 
-git-semver-tags@^1.2.0:
+git-semver-tags@^1.1.2, git-semver-tags@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/git-semver-tags/-/git-semver-tags-1.2.0.tgz#b31fd02c8ab578bd6c9b5cacca5e1c64c1177ac1"
   dependencies:
@@ -2091,10 +2096,6 @@ mocha@3.4.2:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-mock-stdin@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/mock-stdin/-/mock-stdin-0.3.0.tgz#f40d2a513a114e6d547480625b5ef5190744bd4d"
-
 modify-values@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.0.tgz#e2b6cdeb9ce19f99317a53722f3dbf5df5eaaab2"
@@ -2195,6 +2196,12 @@ optionator@^0.8.2:
 os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
+
+os-locale@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/os-locale/-/os-locale-1.4.0.tgz#20f9f17ae29ed345e8bde583b13d2009803c14d9"
+  dependencies:
+    lcid "^1.0.0"
 
 os-locale@^2.0.0:
   version "2.0.0"
@@ -2676,17 +2683,18 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
 
-standard-version@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/standard-version/-/standard-version-4.1.0.tgz#a049e87c302e7fce23f2f8a18e3ed7f1509436ec"
+standard-version@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/standard-version/-/standard-version-4.0.0.tgz#e578cefd43ab7b02944bd7569525052eac1b9787"
   dependencies:
     chalk "^1.1.3"
     conventional-changelog "^1.1.0"
-    conventional-recommended-bump "^1.0.0"
+    conventional-recommended-bump "^0.3.0"
     figures "^1.5.0"
     fs-access "^1.0.0"
+    object-assign "^4.1.0"
     semver "^5.1.0"
-    yargs "^8.0.1"
+    yargs "^6.0.0"
 
 string_decoder@~1.0.0:
   version "1.0.1"
@@ -2694,7 +2702,7 @@ string_decoder@~1.0.0:
   dependencies:
     safe-buffer "^5.0.1"
 
-string-width@^1.0.1:
+string-width@^1.0.1, string-width@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-1.0.2.tgz#118bdf5b8cdc51a2a7e70d211e07e2b0b9b107d3"
   dependencies:
@@ -2865,6 +2873,10 @@ weak-map@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/weak-map/-/weak-map-1.0.5.tgz#79691584d98607f5070bd3b70a40e6bb22e401eb"
 
+which-module@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/which-module/-/which-module-1.0.0.tgz#bba63ca861948994ff307736089e3b96026c2a4f"
+
 which-module@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/which-module/-/which-module-2.0.0.tgz#d9ef07dce77b9902b8a3a8fa4b31c3e3f7e6e87a"
@@ -2932,7 +2944,7 @@ yallist@^2.0.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
 
-yargs, yargs@^8.0.1:
+yargs:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-8.0.1.tgz#420ef75e840c1457a80adcca9bc6fa3849de51aa"
   dependencies:
@@ -2950,11 +2962,35 @@ yargs, yargs@^8.0.1:
     y18n "^3.2.1"
     yargs-parser "^7.0.0"
 
+yargs-parser@^4.2.0:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-4.2.1.tgz#29cceac0dc4f03c6c87b4a9f217dd18c9f74871c"
+  dependencies:
+    camelcase "^3.0.0"
+
 yargs-parser@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-7.0.0.tgz#8d0ac42f16ea55debd332caf4c4038b3e3f5dfd9"
   dependencies:
     camelcase "^4.1.0"
+
+yargs@^6.0.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/yargs/-/yargs-6.6.0.tgz#782ec21ef403345f830a808ca3d513af56065208"
+  dependencies:
+    camelcase "^3.0.0"
+    cliui "^3.2.0"
+    decamelize "^1.1.1"
+    get-caller-file "^1.0.1"
+    os-locale "^1.4.0"
+    read-pkg-up "^1.0.1"
+    require-directory "^2.1.1"
+    require-main-filename "^1.0.1"
+    set-blocking "^2.0.0"
+    string-width "^1.0.2"
+    which-module "^1.0.0"
+    y18n "^3.2.1"
+    yargs-parser "^4.2.0"
 
 yargs@~3.10.0:
   version "3.10.0"
