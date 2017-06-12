@@ -1,7 +1,5 @@
 /* global chrome */
 
-console.log('listening...')
-
 function isCore (url) {
   return -~url.indexOf('chrome://') || -~url.indexOf('chrome-devtools://')
 }
@@ -39,5 +37,4 @@ chrome.tabs.onCreated.addListener(function () {
   })
 })
 
-window.addEventListener('load', function () {
-})
+// window.addEventListener('load', function () {})

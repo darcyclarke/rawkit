@@ -45,39 +45,3 @@ Probably. A flag like `--launch` would be a nice suppliment to `--inspect`. ~~Ma
 First off, big shout out to ["Will"](https://june07.com) who made [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) (ie. Node --inspector Manager). Great project, some cool options and it seems to work pretty well. I think the only criticism I have is that NiM works by polling to see if new ports have opened to launch the inspector (not very effecient). Also, it's a Chrome Extension; That said, this may be something we can't avoid (*I'll be writing an article about this at some point*).
 
 **rawkit** is probably closest to NiM in that it works with the native (although semi-experimental) `node --inspect` feature. I reminice over the days of [node-inspector](https://www.npmjs.com/package/node-inspector), [node-debugger](https://atom.io/packages/node-debugger), [devtool](https://www.npmjs.com/package/devtool) and even [nodemon](https://www.npmjs.com/package/nodemon), to some extent, as they've fallen out of my daily usage. That said, `--inspect` alone isn't going to cut the cheese. **rawkit** gets us back to a simple and straightforward workflow. Less options. More command line. Faster path to the developer tools you know and love.
-
-## Resources
-
-#### Interesting command line flags for chrome:
-
-- `--app`
-- `--auto-open-devtools-for-tabs`
-- `--allow-file-access-from-files`
-- `--enable-devtools-experiments`
-- `--enable-ui-devtools`
-- `--remote-debugging-targets`
-- `--isolate-extensions`
-- `--disable-web-security`
-- `--allow-file-access`
-- `--app-shell-host-window-size=w,h`
-- `--window-size=w,h`
-- `--window-position=x,y`
-
-#### Launching Chrome from Terminal on Mac
-
-```bash
-$ /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome ...
-```
-
-#### You can pass straight HTML to Chrome via `--app`
-
-```bash
-$ ... --app="data:text/html,<html><body><script>window.moveTo(0,0);window.resizeTo(800,600);</script></body></html>"
-```
-
-## TODO
-- allow headless?
-  - investigate utilizing lighthouse's chrome-launcher
-  - https://developers.google.com/web/updates/2017/04/headless-chrome?utm_campaign=chrome_series_headlesschrome_060517&utm_source=chromedev&utm_medium=yt-desc
-- automated extension bundling/versioning
-- update google extension profile (screenshots + video + icon)

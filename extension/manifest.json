@@ -18,7 +18,7 @@
     "128": "icon-128.png"
   },
   "browser_action": {
-    "default_icon": "icon-128-box.png"
+    "default_icon": "icon-128.png"
   },
   "permissions": [
     "activeTab",

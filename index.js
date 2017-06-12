@@ -1,3 +1,4 @@
 #!/usr/bin/env node
 'use strict'
-require('./bin/cli.js')(process.argv)
+const cli = require('./bin/cli.js')(process.argv)
+cli.exec()
