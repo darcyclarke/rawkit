@@ -31,17 +31,31 @@ $ rawkit index.js
 
 ### `--port=[num]`
 
-The only option at the moment, you can set the *port* the extension proxy server lives. Example: `$ rawkit --port=1337 server.js`.
+Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+
+### `--no-prompt` alias `-np`
+
+Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+
+### `--port=[num]` alias ``
+
+Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+
+### `--port=[num]` alias `-p`
+
+Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+
+### `--port=[num]` alias `-e`
+
+Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
 
 ## FAQ
 
-### "Should this be in node core?"
-Probably. A flag like `--launch` would be a nice suppliment to `--inspect`. ~~Maybe I'll make a PR one day~~.
+### Should this be in node core?
+*Maybe*. A flag like `--launch` would be a nice suppliment to `--inspect`. That said...
 
-*Update: opening internal chrome links externally is no walk in the park (ie. `chrome://` or `chrome-devtools://` in this specific case). I might write a blog post about the different ways I looked at how to solve this, what I learned, and the general nitty gritty of what should have been a straightforward problem to solve.*
+*Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/REASERCH.md) for more information.*
 
-### "How is this different then the competitors?"
+### How is this different then other Node.js+Chrome debugging projects?
 
-First off, big shout out to ["Will"](https://june07.com) who made [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) (ie. Node --inspector Manager). Great project, some cool options and it seems to work pretty well. I think the only criticism I have is that NiM works by polling to see if new ports have opened to launch the inspector (not very effecient). Also, it's a Chrome Extension; That said, this may be something we can't avoid (*I'll be writing an article about this at some point*).
-
-**rawkit** is probably closest to NiM in that it works with the native (although semi-experimental) `node --inspect` feature. I reminice over the days of [node-inspector](https://www.npmjs.com/package/node-inspector), [node-debugger](https://atom.io/packages/node-debugger), [devtool](https://www.npmjs.com/package/devtool) and even [nodemon](https://www.npmjs.com/package/nodemon), to some extent, as they've fallen out of my daily usage. That said, `--inspect` alone isn't going to cut the cheese. **rawkit** gets us back to a simple and straightforward workflow. Less options. More command line. Faster path to the developer tools you know and love.
+Shout out to ["Will"](https://june07.com) who made [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) (ie. *Node --inspector Manager*). Great project. NiM works by polling to see if new node debugging ports have opened to launch the inspector. That said, this is generally a slow & a bit clunky approach. Thus, I made this CLI tool to immediately open the developer tools when executed.

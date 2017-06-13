@@ -17,6 +17,14 @@ class CLI {
     this.browser = `google chrome ${this.args.canary ? 'canary' : ''}`.trim()
   }
 
+  get props () {
+    return {
+      args: this.args,
+      browser: this.browser,
+      port: this.port
+    }
+  }
+
   parseArguments (args) {
     this.args = yargs
       .version()
@@ -46,7 +54,7 @@ class CLI {
         alias: 'e',
         describe: 'Define a specific port to run the extension server on. Defaults to 9223.'
       })
-      .parse(args, process)
+      .parse(args)
   }
 
   parseURL (str) {
