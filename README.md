@@ -11,10 +11,6 @@
 
 **rawkit** grabs the chrome inspector URL returned from the `node --inspect` command and immediately opens devtools. No more *clicking*, *selecting*, *copying*/*pasting* or *navigating*. Just run the command and jump into debugging.
 
-## [Currently In-Development]
-
-Proof-of-concept is working, polish, tests and some other tweaks should be ready soon. Clone, fork or install at your own risk.
-
 ### Installation
 
 ```bash
@@ -41,10 +37,6 @@ Set the port the extension proxy server lives on. Example: `$ rawkit --extension
 
 Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
 
-### `--port=[num]` alias `-p`
-
-Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
-
 ### `--port=[num]` alias `-e`
 
 Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
@@ -56,6 +48,6 @@ Set the port the extension proxy server lives on. Example: `$ rawkit --extension
 
 *Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/REASERCH.md) for more information.*
 
-### How is this different then other Node.js+Chrome debugging projects?
+### How is this different then other Node.js Chrome debugging tools?
 
-Shout out to ["Will"](https://june07.com) who made [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) (ie. *Node --inspector Manager*). Great project. NiM works by polling to see if new node debugging ports have opened to launch the inspector. That said, this is generally a slow & a bit clunky approach. Thus, I made this CLI tool to immediately open the developer tools when executed.
+Shout out to ["Will"](https://june07.com) who made [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) (ie. *Node --inspector Manager*). Great project. NiM works by polling to see if new node debugging ports have opened to launch the inspector. That said, this is generally a slow & a bit clunky approach. Thus, I made this CLI tool to immediately open the developer tools when executed. Simple & fast.

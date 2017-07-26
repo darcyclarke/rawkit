@@ -42,14 +42,6 @@ class CLI {
         alias: 's',
         describe: 'Hide stdout/stderr output from child process'
       })
-      .option('headless', {
-        alias: 'l',
-        describe: 'Run chrome in a headless environment. This will disable prompting'
-      })
-      .option('headless-port', {
-        alias: 'p',
-        describe: 'Define a specific port to run headless chrome in. Must be used in tandem with --headless. Defaults to 9222.'
-      })
       .option('extension-port', {
         alias: 'e',
         describe: 'Define a specific port to run the extension server on. Defaults to 9223.'
