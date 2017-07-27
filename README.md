@@ -42,7 +42,7 @@ Set the port the extension proxy server lives on. Example: `$ rawkit --extension
 ### Should this be in node core?
 *Maybe*. A flag like `--launch` would be a nice suppliment to `--inspect`. That said...
 
-*Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/REASERCH.md) for more information.*
+*Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/RESEARCH.md) for more information.*
 
 ### How is this different then other Node.js Chrome debugging tools?
 
