@@ -9,7 +9,7 @@
     "./bin/cli.js"
   ],
   "scripts": {
-    "test": "mocha ./test/**.test.js",
+    "test": "mocha ./test/index.test.js ./test/server.js --test args --port 5000",
     "lint": "eslint .",
     "admin": "node ./scripts/admin.js"
   },
