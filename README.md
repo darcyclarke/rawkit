@@ -33,11 +33,7 @@ Set the port the extension proxy server lives on. Example: `$ rawkit --extension
 
 Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
 
-### `--port=[num]` alias ``
-
-Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
-
-### `--port=[num]` alias `-e`
+### `--extension-port=[num]` alias `-e`
 
 Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
 

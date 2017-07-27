@@ -57,7 +57,7 @@ class CLI {
 
   exec () {
     let args = this.args._.splice(2, this.args._.length).join(' ')
-    this.child = exec(`node --inspect ${args}`, { shell: true })
+    this.child = exec(`node ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
