@@ -25,17 +25,21 @@ $ rawkit index.js
 
 ## Options
 
-### `--port=[num]`
+### `--inspect-brk` alias `brk`
 
-Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+To break on the first line of the application code.
 
-### `--no-prompt` alias `-np`
+### `--extension=[port]` alias `e`
 
-Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+Define a specific port to run the extension server on. Defaults to 1337.
 
-### `--extension-port=[num]` alias `-e`
+### `--silent` alias `s`
 
-Set the port the extension proxy server lives on. Example: `$ rawkit --extension-port=9023 server.js`.
+Hide stdout/stderr output from child process in the terminal window.
+
+### `--canary` alias `c`
+
+Open the devtools in canary.
 
 ## FAQ
 

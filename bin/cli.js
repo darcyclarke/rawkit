@@ -54,7 +54,7 @@ class CLI {
       })
       .option('extension', {
         alias: 'e',
-        describe: 'Define a specific port to run the extension server on. Defaults to 9223.',
+        describe: 'Define a specific port to run the extension server on. Defaults to 1337.',
         type: 'number'
       })
       .parse(args)
