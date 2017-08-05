@@ -3,7 +3,6 @@
   <head>
     <title>rawkit launch...</title>
     <link rel="icon" type="image/png" href="icon.png" />
-    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/poapmlldjpcgenaedpopfjjagnihpkim/">
     <style type="text/css">
       html, body {
         margin: 0;
@@ -11,6 +10,7 @@
         background: white;
       }
       body {
+        font-family: sans-serif;
         height: 100vh;
         display: flex;
         flex-direction: column;
@@ -23,7 +23,8 @@
         align-items: center;
         justify-content: center;
       }
-      button {
+      a {
+        text-decoration: none;
         margin-top: 10%;
         padding: 20px;
         border: none;
@@ -35,12 +36,12 @@
         text-align: center;
         transition: background 0.3s, padding 0.3s, opacity 1s;
       }
-      button:hover {
+      a:hover {
         cursor: pointer;
         background: #3773D5;
         padding: 25px;
       }
-      button.visible {
+      a.visible {
         opacity: 1;
       }
       .image {
@@ -142,7 +143,7 @@
       <div class="yellow"></div>
       <div class="green"></div>
     </div>
-    <button onclick="chrome.webstore.install()" id="install-button">Click to add <strong>rawkit</strong> to Chrome</button>
+    <a href="https://chrome.google.com/webstore/detail/rawkit/poapmlldjpcgenaedpopfjjagnihpkim?authuser=1" id="install-button">Click to add <strong>rawkit</strong> to Chrome</a>
     <script type="text/javascript">
       window.onload = function () {
         if (!chrome.app.isInstalled) {

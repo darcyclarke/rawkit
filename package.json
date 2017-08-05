@@ -3,11 +3,9 @@
   "version": "1.0.4",
   "description": "Open chrome devtools debugger",
   "bin": {
-    "rawkit": "./index.js"
+    "rawkit": "index.js"
   },
-  "files": [
-    "./bin/cli.js"
-  ],
+  "main": "index.js",
   "scripts": {
     "test": "mocha ./test/index.test.js ./test/server.js --test args --port 5000",
     "lint": "eslint .",

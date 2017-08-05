@@ -10,7 +10,7 @@ const yargs = require('yargs')
 class CLI {
   constructor (args) {
     this.parseArguments(args)
-    this.port = this.args.port || 1337
+    this.port = this.args.extension || 1337
     this.image = { path: './extension/icon.png', type: 'image/png' }
     this.index = { path: './extension/index.html', type: 'text/html' }
     this.caught = false
@@ -30,34 +30,47 @@ class CLI {
       .version()
       .demandCommand(1)
       .usage('rawkit [options] <file ...>')
+      .alias('v', 'version')
+      .version(() => require('../package').version)
+      .describe('v', 'show version information')
+      .alias('h', 'help')
+      .help('help')
+      .usage('Usage: $0 -x [num]')
+      .showHelpOnFail(false, 'Specify --help for available options')
       .option('canary', {
         alias: 'c',
-        describe: 'Run the devtools in canary.'
+        describe: 'Run the devtools in canary.',
+        boolean: true
       })
-      .option('no-prompt', {
-        alias: 'np',
-        describe: 'Disable the automatic opening of the browser'
+      .option('inspect-brk', {
+        alias: 'brk',
+        describe: 'To break on the first line of the application code.',
+        boolean: true
       })
       .option('silent', {
         alias: 's',
-        describe: 'Hide stdout/stderr output from child process'
+        describe: 'Hide stdout/stderr output from child process.',
+        boolean: true
       })
-      .option('extension-port', {
+      .option('extension', {
         alias: 'e',
-        describe: 'Define a specific port to run the extension server on. Defaults to 9223.'
+        describe: 'Define a specific port to run the extension server on. Defaults to 9223.',
+        type: 'number'
       })
       .parse(args)
   }
 
   parseURL (str) {
-    let re = /\schrome-devtools[^\s]*|^chrome-devtools[^\s]*/gi
+    let re = /(\b(ws?|chrome-devtools):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
     let matches = str.match(re)
     return (matches) ? matches[0] : null
   }
 
   exec () {
-    let args = this.args._.splice(2, this.args._.length).join(' ')
-    this.child = exec(`node ${args}`, { shell: true })
+    let o = process.argv
+    let args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
+    let cmd = (this.args._.brk) ? '--inspect-brk' : '--inspect'
+    this.child = exec(`node ${cmd} ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
@@ -65,17 +78,16 @@ class CLI {
   }
 
   handle (data) {
-    let link = this.parseURL(data)
-    if (!this.caught && link && !this.args['no-prompt']) {
-      opn(
-        `http://localhost:${this.port}/?rawkit=${encodeURIComponent(link)}`,
-        {
-          app: [ this.browser ],
-          wait: false
-        }
-      )
-      .then(() => {})
-      .catch((e) => {})
+    let ref = this.parseURL(data)
+    if (!this.caught && ref && !this.args['no-prompt']) {
+      let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
+      let opts = {
+        app: [this.browser],
+        wait: false
+      }
+      opn(link, opts)
+        .then(() => {})
+        .catch((e) => {})
       this.caught = true
     }
     if (!this.args.silent) {
@@ -87,12 +99,16 @@ class CLI {
     this.server = http.createServer()
     this.server.on('request', (req, res) => {
       let request = url.parse(req.url, true)
-      let image = request.pathname.match(/\.(jpeg|jpg|png|gif)$/)
+      let image = request.pathname.indexOf('.png') >= 0
       let file = (image) ? this.image : this.index
       fs.readFile(file.path, (err, data) => {
         if (err) throw err
         res.writeHead(200, { 'Content-Type': file.type })
-        res.end(data.toString())
+        if (image) {
+          res.end(data, 'binary')
+        } else {
+          res.end(data.toString())
+        }
       })
     }).listen(this.port)
   }
