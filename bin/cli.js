@@ -68,7 +68,7 @@ class CLI {
     let matches = str.match(re)
     let link = (matches) ? matches[0] : null
     let isNew = link && link.indexOf(this.prefix) >= 0
-    return (isNew) ? `${this.prefix}${link.replace(this.prefix, '')}` : link
+    return (isNew) ? `${this.devtools}${link.replace(this.prefix, '')}` : link
   }
 
   exec () {
