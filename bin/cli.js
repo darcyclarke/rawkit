@@ -94,8 +94,10 @@ class CLI {
         .then(() => {})
         .catch((e) => {})
       this.caught = true
-    }
-    if (!this.args.silent) {
+      if (!this.args.silent) {
+        console.log('\x1b[33m%s\x1b[0m', 'Devtools URL:', ref)
+      }
+    } else if (!this.args.silent) {
       process.stdout.write(data)
     }
   }
