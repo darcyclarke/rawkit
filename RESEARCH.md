@@ -30,4 +30,11 @@ $ ... --app="data:text/html,<html><body><script>window.moveTo(0,0);window.resize
 ```
 
 ### Headless Chrome
-Great article by Eric Bidelman for here: https://developers.google.com/web/updates/2017/04/headless-chrome. Most notabley, I found out that Lighthouse ships with a "chrome-launcher" (ie. `require('lighthouse/chrome-launcher/chrome-launcher')`) which has some nifty options as well.
+Great article by Eric Bidelman here: https://developers.google.com/web/updates/2017/04/headless-chrome. Most notably, I found out that Lighthouse ships with a "chrome-launcher" (ie. `require('lighthouse/chrome-launcher/chrome-launcher')`) which has some nifty options as well.
+
+### Redirection / Opening the DevTools panel
+`window.location = 'chrome-devtools://...'` definitely doesn't work in the browser... you must open the dev tools panel (and any other chrome-specific url, like `chrome://flags`) using a Chrome Extension. 
+
+#### Keys to the Chrome Extension approach:
+- Use `chrome.tabs.create({ url: '[insert chrome-specific link here]' })`
+- Put the above **inside** a user/browser action/listener (ex. `chrome.tabs.onCreated.addListener()` or `chrome.browserAction.onClicked.addListener()`)
