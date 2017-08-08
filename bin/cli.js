@@ -11,6 +11,8 @@ class CLI {
   constructor (args) {
     this.parseArguments(args)
     this.port = this.args.extension || 1337
+    this.prefix = 'ws://'
+    this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
     this.image = { path: './extension/icon.png', type: 'image/png' }
     this.index = { path: './extension/index.html', type: 'text/html' }
     this.caught = false
@@ -63,7 +65,9 @@ class CLI {
   parseURL (str) {
     let re = /(\b(ws?|chrome-devtools):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
     let matches = str.match(re)
-    return (matches) ? matches[0] : null
+    let link = (matches) ? matches[0] : null
+    let isNew = link && link.indexOf(this.prefix) >= 0
+    return (isNew) ? link.replace(this.prefix, '') : link
   }
 
   exec () {
