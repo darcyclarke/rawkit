@@ -3,6 +3,7 @@
 const fs = require('fs')
 const opn = require('opn')
 const url = require('url')
+const path = require('path')
 const http = require('http')
 const exec = require('child_process').exec
 const yargs = require('yargs')
@@ -105,7 +106,7 @@ class CLI {
       let request = url.parse(req.url, true)
       let image = request.pathname.indexOf('.png') >= 0
       let file = (image) ? this.image : this.index
-      fs.readFile(file.path, (err, data) => {
+      fs.readFile(path.resolve(__dirname, file.path), (err, data) => {
         if (err) throw err
         res.writeHead(200, { 'Content-Type': file.type })
         if (image) {
