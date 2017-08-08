@@ -13,8 +13,8 @@ class CLI {
     this.port = this.args.extension || 1337
     this.prefix = 'ws://'
     this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
-    this.image = { path: './extension/icon.png', type: 'image/png' }
-    this.index = { path: './extension/index.html', type: 'text/html' }
+    this.image = { path: '../extension/icon.png', type: 'image/png' }
+    this.index = { path: '../extension/index.html', type: 'text/html' }
     this.caught = false
     this.browser = `google chrome ${this.args.canary ? 'canary' : ''}`.trim()
   }
