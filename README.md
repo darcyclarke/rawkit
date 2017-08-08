@@ -23,7 +23,7 @@ $ npm i rawkit -g
 $ rawkit index.js
 ```
 
-![rawkit](https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif)
+<img src="https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif" width="100%" alt="tutorial">
 
 ## Options
 
