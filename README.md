@@ -23,7 +23,7 @@ $ npm i rawkit -g
 $ rawkit index.js
 ```
 
-![rawkit-tut](https://user-images.githubusercontent.com/459713/29083381-8da70160-7c36-11e7-8e5a-dd0e49495776.gif)
+![rawkit](https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif)
 
 ## Options
 
