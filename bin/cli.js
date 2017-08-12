@@ -82,7 +82,7 @@ class CLI {
   }
 
   exec () {
-    let binary = this.args.nodemon ? 'nodemon' : node
+    let binary = this.args.nodemon ? 'nodemon' : 'node'
     let o = process.argv
     let args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
     let cmd = (this.args.brk) ? '--inspect-brk' : '--inspect'
