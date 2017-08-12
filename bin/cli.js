@@ -50,6 +50,11 @@ class CLI {
         describe: 'To break on the first line of the application code.',
         boolean: true
       })
+      .option('inspect-port', {
+        alias: 'p',
+        describe: 'Debug port. Defaults to 9229. (Passes through to node)',
+        type: 'number'
+      })
       .option('silent', {
         alias: 's',
         describe: 'Hide stdout/stderr output from child process.',
@@ -74,7 +79,10 @@ class CLI {
   exec () {
     let o = process.argv
     let args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
-    let cmd = (this.args._.brk) ? '--inspect-brk' : '--inspect'
+    let cmd = (this.args.brk) ? '--inspect-brk' : '--inspect'
+    if (this.args.inspectPort) {
+      cmd += ` --inspect-port=${this.args.inspectPort}`;
+    }
     this.child = exec(`node ${cmd} ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
