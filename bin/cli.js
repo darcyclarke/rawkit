@@ -64,18 +64,26 @@ class CLI {
   }
 
   parseURL (str) {
-    let re = /(\b(ws?|chrome-devtools):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
-    let matches = str.match(re)
-    let link = (matches) ? matches[0] : null
-    let isNew = link && link.indexOf(this.prefix) >= 0
+    const re = /(\b(ws?|chrome-devtools):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
+    const matches = str.match(re)
+    const link = (matches) ? matches[0] : null
+    const isNew = link && link.indexOf(this.prefix) >= 0
     return (isNew) ? `${this.devtools}${link.replace(this.prefix, '')}` : link
   }
 
   exec () {
-    let o = process.argv
-    let args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
-    let cmd = (this.args._.brk) ? '--inspect-brk' : '--inspect'
-    this.child = exec(`node ${cmd} ${args}`, { shell: true })
+    const o = process.argv
+    const args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
+    const cmd = (this.args._.brk) ? '--inspect-brk' : '--inspect'
+    let nodemonConfig
+    let execCommand = 'node'
+
+    try {
+      nodemonConfig = fs.readFileSync('nodemon.json', 'utf8')
+      execCommand = nodemonConfig.execMap.js
+    } catch (err) {}
+
+    this.child = exec(`${execCommand} ${cmd} ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
@@ -83,10 +91,10 @@ class CLI {
   }
 
   handle (data) {
-    let ref = this.parseURL(data)
+    const ref = this.parseURL(data)
     if (!this.caught && ref && !this.args['no-prompt']) {
-      let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
-      let opts = {
+      const link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
+      const opts = {
         app: [this.browser],
         wait: false
       }
@@ -105,9 +113,9 @@ class CLI {
   start () {
     this.server = http.createServer()
     this.server.on('request', (req, res) => {
-      let request = url.parse(req.url, true)
-      let image = request.pathname.indexOf('.png') >= 0
-      let file = (image) ? this.image : this.index
+      const request = url.parse(req.url, true)
+      const image = request.pathname.indexOf('.png') >= 0
+      const file = (image) ? this.image : this.index
       fs.readFile(path.resolve(__dirname, file.path), (err, data) => {
         if (err) throw err
         res.writeHead(200, { 'Content-Type': file.type })
