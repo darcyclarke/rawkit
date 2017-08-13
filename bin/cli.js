@@ -45,10 +45,20 @@ class CLI {
         describe: 'Run the devtools in canary.',
         boolean: true
       })
+      .option('nodemon', {
+        alias: 'nm',
+        describe: 'Use nodemon.',
+        boolean: true
+      })
       .option('inspect-brk', {
         alias: 'brk',
         describe: 'To break on the first line of the application code.',
         boolean: true
+      })
+      .option('inspect-port', {
+        alias: 'p',
+        describe: 'Debug port. Defaults to 9229. (Passes through to node)',
+        type: 'number'
       })
       .option('silent', {
         alias: 's',
@@ -72,10 +82,14 @@ class CLI {
   }
 
   exec () {
+    let binary = this.args.nodemon ? 'nodemon' : 'node'
     let o = process.argv
     let args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
-    let cmd = (this.args._.brk) ? '--inspect-brk' : '--inspect'
-    this.child = exec(`node ${cmd} ${args}`, { shell: true })
+    let cmd = (this.args.brk) ? '--inspect-brk' : '--inspect'
+    if (this.args.inspectPort) {
+      cmd += ` --inspect-port=${this.args.inspectPort}`
+    }
+    this.child = exec(`${binary} ${cmd} ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
