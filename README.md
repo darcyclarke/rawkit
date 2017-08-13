@@ -25,11 +25,27 @@ $ rawkit index.js
 
 <img src="https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif" width="100%" alt="tutorial">
 
+### Note: On a Mac & don't want to install the Chrome Extension?
+
+**Homebrew install [chrome-cli](https://github.com/prasmussen/chrome-cli)**
+
+```bash
+$ brew install chrome-cli
+```
+
+**rawkit** will automatically detect `chrome-cli` and use it over prompting to use the Chrome Extension. Unfortunately, Windows users will still have to go through that first option.
+
 ## Options
+
+By default, running `rawkit` can detect any `main` script that's been defined in the current working directory's `package.json` and run that. It also will detect the version of Node.js you're running to determine whether or not to fallback to older `debug` APIs.
 
 ### `--inspect-brk` alias `brk`
 
 To break on the first line of the application code.
+
+### `--inspect-port` alias `p`
+
+The debugger port. Defaults to 9229.
 
 ### `--extension=[port]` alias `e`
 
@@ -46,10 +62,6 @@ Open the devtools in canary.
 ## FAQ
 
 ### Should this be in node core?
-*Maybe*. A flag like `--launch` would be a nice suppliment to `--inspect`. That said...
+*Maybe*. A flag like `--launch` would be a nice supplement to `--inspect`. That said...
 
-*Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/blob/master/RESEARCH.md) for more information.*
-
-### How is this different then other Node.js Chrome debugging tools?
-
-Shout out to ["Will"](https://june07.com) who made [NiM](https://chrome.google.com/webstore/detail/nodejs-v8-inspector-manag/gnhhdgbaldcilmgcpfddgdbkhjohddkj?hl=en) (ie. *Node --inspector Manager*). Great project. NiM works by polling to see if new node debugging ports have opened to launch the inspector. That said, this is generally a slow & a bit clunky approach. Thus, I made this CLI tool to immediately open the developer tools when executed. Simple & fast.
+*Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/blob/master/RESEARCH.md) for more information. You can also use something like this [lighthouse/chrome-launcher](https://github.com/GoogleChrome/lighthouse/tree/master/chrome-launcher).*

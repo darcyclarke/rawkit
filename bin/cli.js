@@ -6,7 +6,10 @@ const url = require('url')
 const path = require('path')
 const http = require('http')
 const exec = require('child_process').exec
+const spawn = require('child_process').spawn
 const yargs = require('yargs')
+const shell = require('shelljs')
+const compare = require('semver-compare')
 
 class CLI {
   constructor (args) {
@@ -47,7 +50,7 @@ class CLI {
       })
       .option('nodemon', {
         alias: 'nm',
-        describe: 'Use nodemon.',
+        describe: 'Use nodemon to automatically reload your application .',
         boolean: true
       })
       .option('inspect-brk', {
@@ -57,7 +60,7 @@ class CLI {
       })
       .option('inspect-port', {
         alias: 'p',
-        describe: 'Debug port. Defaults to 9229. (Passes through to node)',
+        describe: 'The debugger port. Defaults to 9229.',
         type: 'number'
       })
       .option('silent', {
@@ -81,15 +84,43 @@ class CLI {
     return (isNew) ? `${this.devtools}${link.replace(this.prefix, '')}` : link
   }
 
-  exec () {
-    let binary = this.args.nodemon ? 'nodemon' : 'node'
-    let o = process.argv
-    let args = o.splice(o.indexOf(this.args._[2]), o.length).join(' ')
-    let cmd = (this.args.brk) ? '--inspect-brk' : '--inspect'
-    if (this.args.inspectPort) {
-      cmd += ` --inspect-port=${this.args.inspectPort}`
+  path () {
+    let path = 'package.json'
+    if (fs.existsSync(path)) {
+      let config = JSON.parse(fs.readFileSync(path, 'utf8'))
+      if (config.main) {
+        return config.main
+      }
     }
-    this.child = exec(`${binary} ${cmd} ${args}`, { shell: true })
+    throw Error(`You must define a path to a node process directly or within your package.json under 'main'`)
+  }
+
+  nodemon () {
+    let path = 'nodemon.json'
+    let cmd = 'nodemon'
+    if (!shell.which('nodemon')) {
+      throw new Error('nodemon is not installed')
+    }
+    if (fs.existsSync(path)) {
+      let config = JSON.parse(fs.readFileSync(path, 'utf8'))
+      return (config && config.execMap) ? config.execMap.js : cmd
+    }
+    return cmd
+  }
+
+  exec () {
+    let path = (this.args._.length > 2) ? this.args._[2] : this.path()
+    let o = process.argv
+    let legacy = (compare(process.version, '8.0.0') === -1)
+    let brk = (legacy) ? 'debug-brk' : 'inspect-brk'
+    let cmd = (this.args.brk) ? brk : 'inspect'
+    let args = o.splice(o.indexOf(path), o.length).join(' ').replace(path, '')
+    let binary = (this.args.nodemon) ? this.nodemon() : 'node'
+    if (this.args.inspectPort) {
+      let flag = (legacy) ? 'debug' : 'inspect-port'
+      cmd += ` --${flag}=${this.args.inspectPort}`
+    }
+    this.child = exec(`${binary} --${cmd} ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
@@ -99,15 +130,19 @@ class CLI {
   handle (data) {
     let ref = this.parseURL(data)
     if (!this.caught && ref && !this.args['no-prompt']) {
-      let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
-      let opts = {
-        app: [this.browser],
-        wait: false
-      }
-      opn(link, opts)
-        .then(() => {})
-        .catch((e) => {})
       this.caught = true
+      if (shell.which('chrome-cli')) {
+        spawn('chrome-cli', [ 'open', ref ], { stdio: 'inherit' })
+      } else {
+        let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
+        let opts = {
+          app: [this.browser],
+          wait: false
+        }
+        opn(link, opts)
+          .then(() => {})
+          .catch((e) => {})
+      }
       if (!this.args.silent) {
         console.log('\x1b[33m%s\x1b[0m', 'Devtools URL:', ref)
       }
