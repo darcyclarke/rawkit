@@ -25,7 +25,7 @@ $ rawkit index.js
 
 <img src="https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif" width="100%" alt="tutorial">
 
-### Note: On a Mac & don't want to install the Chrome Extension?
+### Don't want to install the Chrome Extension?
 
 **Homebrew install [chrome-cli](https://github.com/prasmussen/chrome-cli)**
 

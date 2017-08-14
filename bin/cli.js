@@ -6,7 +6,6 @@ const url = require('url')
 const path = require('path')
 const http = require('http')
 const exec = require('child_process').exec
-const spawn = require('child_process').spawn
 const yargs = require('yargs')
 const shell = require('shelljs')
 const compare = require('semver-compare')
@@ -16,6 +15,7 @@ class CLI {
     this.parseArguments(args)
     this.port = this.args.extension || 1337
     this.prefix = 'ws://'
+    this.chrome = '/Applications/Google Chrome.app'
     this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
     this.image = { path: '../extension/icon.png', type: 'image/png' }
     this.index = { path: '../extension/index.html', type: 'text/html' }
@@ -132,7 +132,7 @@ class CLI {
     if (!this.caught && ref && !this.args['no-prompt']) {
       this.caught = true
       if (shell.which('chrome-cli')) {
-        spawn('chrome-cli', [ 'open', ref ], { stdio: 'inherit' })
+        exec(`chrome-cli open ${ref}; open -a "${this.chrome}"`, { shell: true })
       } else {
         let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
         let opts = {
