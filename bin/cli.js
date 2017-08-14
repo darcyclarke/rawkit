@@ -6,8 +6,8 @@ const url = require('url')
 const path = require('path')
 const http = require('http')
 const exec = require('child_process').exec
+const execSync = require('child_process').execSync
 const yargs = require('yargs')
-const shell = require('shelljs')
 const compare = require('semver-compare')
 
 class CLI {
@@ -95,10 +95,20 @@ class CLI {
     throw Error(`You must define a path to a node process directly or within your package.json under 'main'`)
   }
 
+  exists (cmd) {
+    try {
+      let stdout = execSync(`command -v ${cmd} 2>/dev/null && { echo >&1 \'${cmd} found\'; exit 0; }`
+      )
+      return !!stdout
+    } catch (error) {
+      return false
+    }
+  }
+
   nodemon () {
     let path = 'nodemon.json'
     let cmd = 'nodemon'
-    if (!shell.which('nodemon')) {
+    if (!this.exists('nodemon')) {
       throw new Error('nodemon is not installed')
     }
     if (fs.existsSync(path)) {
@@ -131,7 +141,7 @@ class CLI {
     let ref = this.parseURL(data)
     if (!this.caught && ref && !this.args['no-prompt']) {
       this.caught = true
-      if (shell.which('chrome-cli')) {
+      if (this.exists('chrome-cli')) {
         exec(`chrome-cli open ${ref}; open -a "${this.chrome}"`, { shell: true })
       } else {
         let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
