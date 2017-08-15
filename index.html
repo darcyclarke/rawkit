@@ -144,8 +144,7 @@
       <div class="yellow"></div>
       <div class="green"></div>
     </div>
-    <button onclick="chrome.webstore.install()">Hello</button>
-    <a href="https://chrome.google.com/webstore/detail/rawkit/poapmlldjpcgenaedpopfjjagnihpkim?authuser=1" id="install-button">Click to add <strong>rawkit</strong> to Chrome</a>
+    <a onclick="chrome.webstore.install()" id="install-button">Click to add <strong>rawkit</strong> to Chrome</a>
     <script type="text/javascript">
       window.onload = function () {
         if (!chrome.app.isInstalled) {
