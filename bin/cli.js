@@ -2,6 +2,7 @@
 
 const fs = require('fs')
 const opn = require('opn')
+const path = require('path')
 const exec = require('child_process').exec
 const execSync = require('child_process').execSync
 const spawn = require('child_process').spawn
@@ -75,17 +76,6 @@ class CLI {
     return (isNew) ? `${this.devtools}${link.replace(this.prefix, '')}` : link
   }
 
-  path () {
-    let path = 'package.json'
-    if (fs.existsSync(path)) {
-      let config = JSON.parse(fs.readFileSync(path, 'utf8'))
-      if (config.main) {
-        return config.main
-      }
-    }
-    throw Error(`You must define a path to a node process directly or within your package.json under 'main'`)
-  }
-
   exists (cmd) {
     try {
       let stdout = execSync(`command -v ${cmd} 2>/dev/null && { echo >&1 \'${cmd} found\'; exit 0; }`
@@ -96,14 +86,27 @@ class CLI {
     }
   }
 
+  path () {
+    let file = path.relative(process.cwd(), 'package.json')
+    if (fs.existsSync(file)) {
+      let config = JSON.parse(fs.readFileSync(file, 'utf8'))
+      if (config.main) {
+        return path.resolve(process.cwd(), config.main)
+      }
+    }
+    console.error(`You must define a path to a node process directly or within your package.json under 'main'`)
+    process.exit()
+  }
+
   nodemon () {
-    let path = 'nodemon.json'
+    let file = path.relative(process.cwd(), 'nodemon.json')
     let cmd = 'nodemon'
     if (!this.exists('nodemon')) {
-      throw new Error('nodemon is not installed')
+      console.error('nodemon is not installed')
+      process.exit()
     }
     if (fs.existsSync(path)) {
-      let config = JSON.parse(fs.readFileSync(path, 'utf8'))
+      let config = JSON.parse(fs.readFileSync(file, 'utf8'))
       return (config && config.execMap) ? config.execMap.js : cmd
     }
     return cmd
@@ -133,7 +136,6 @@ class CLI {
     if (!this.caught && ref && !this.args['no-prompt']) {
       this.caught = true
       if (this.exists('chrome-cli')) {
-        console.log('reference', ref)
         let chrome = spawn('chrome-cli', [ 'open', ref ])
         execSync(`open -a "${this.chrome}"`)
         chrome.stdout.on('data', _ => {})
