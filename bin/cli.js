@@ -7,6 +7,7 @@ const path = require('path')
 const http = require('http')
 const exec = require('child_process').exec
 const execSync = require('child_process').execSync
+const spawn = require('child_process').spawn
 const yargs = require('yargs')
 const compare = require('semver-compare')
 
@@ -142,7 +143,12 @@ class CLI {
     if (!this.caught && ref && !this.args['no-prompt']) {
       this.caught = true
       if (this.exists('chrome-cli')) {
-        exec(`chrome-cli open ${ref}; open -a "${this.chrome}"`, { shell: true })
+        console.log('reference', ref)
+        let chrome = spawn('chrome-cli', [ 'open', ref ])
+        execSync(`open -a "${this.chrome}"`)
+        chrome.stdout.on('data', _ => {})
+        chrome.stderr.on('data', _ => {})
+        chrome.on('close', _ => {})
       } else {
         let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
         let opts = {
