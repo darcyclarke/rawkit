@@ -2,9 +2,6 @@
 
 const fs = require('fs')
 const opn = require('opn')
-const url = require('url')
-const path = require('path')
-const http = require('http')
 const exec = require('child_process').exec
 const execSync = require('child_process').execSync
 const spawn = require('child_process').spawn
@@ -14,7 +11,6 @@ const compare = require('semver-compare')
 class CLI {
   constructor (args) {
     this.parseArguments(args)
-    this.port = this.args.extension || 1337
     this.prefix = 'ws://'
     this.chrome = '/Applications/Google Chrome.app'
     this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
@@ -27,8 +23,7 @@ class CLI {
   get props () {
     return {
       args: this.args,
-      browser: this.browser,
-      port: this.port
+      browser: this.browser
     }
   }
 
@@ -68,11 +63,6 @@ class CLI {
         alias: 's',
         describe: 'Hide stdout/stderr output from child process.',
         boolean: true
-      })
-      .option('extension', {
-        alias: 'e',
-        describe: 'Define a specific port to run the extension server on. Defaults to 1337.',
-        type: 'number'
       })
       .parse(args)
   }
@@ -150,7 +140,7 @@ class CLI {
         chrome.stderr.on('data', _ => {})
         chrome.on('close', _ => {})
       } else {
-        let link = `http://localhost:${this.port}/?rawkit=${encodeURIComponent(ref)}`
+        let link = `https://darcyclarke.github.io/rawkit/?rawkit=${encodeURIComponent(ref)}`
         let opts = {
           app: [this.browser],
           wait: false
@@ -165,24 +155,6 @@ class CLI {
     } else if (!this.args.silent) {
       process.stdout.write(data)
     }
-  }
-
-  start () {
-    this.server = http.createServer()
-    this.server.on('request', (req, res) => {
-      let request = url.parse(req.url, true)
-      let image = request.pathname.indexOf('.png') >= 0
-      let file = (image) ? this.image : this.index
-      fs.readFile(path.resolve(__dirname, file.path), (err, data) => {
-        if (err) throw err
-        res.writeHead(200, { 'Content-Type': file.type })
-        if (image) {
-          res.end(data, 'binary')
-        } else {
-          res.end(data.toString())
-        }
-      })
-    }).listen(this.port)
   }
 }
 
