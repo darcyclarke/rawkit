@@ -18,7 +18,7 @@ class CLI {
     this.image = { path: '../extension/icon.png', type: 'image/png' }
     this.index = { path: '../extension/index.html', type: 'text/html' }
     this.caught = false
-    this.browser = `google chrome ${this.args.canary ? 'canary' : ''}`.trim()
+    this.browser = `${this.args.executable} ${this.args.canary ? 'canary' : ''}`.trim()
   }
 
   get props () {
@@ -40,6 +40,11 @@ class CLI {
       .help('help')
       .usage('Usage: $0 -x [num]')
       .showHelpOnFail(false, 'Specify --help for available options')
+      .option('executable', {
+        alias: 'e',
+        describe: 'Specify the name of the executable.',
+        default: 'google chrome'
+      })
       .option('canary', {
         alias: 'c',
         describe: 'Run the devtools in canary.',
