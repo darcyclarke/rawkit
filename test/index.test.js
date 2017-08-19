@@ -14,10 +14,8 @@ describe('rawkit', () => {
   // - should handle inspect-brk
   // - should handle inspect-port
   // - should handle stdin stdin(input)
-
   // - should detect url
   // - should parse url
-
   // - should start a child process
 
   it('should handle arguments', () => {
