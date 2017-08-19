@@ -47,9 +47,9 @@ To break on the first line of the application code.
 
 The debugger port. Defaults to 9229.
 
-### `--extension=[port]` alias `e`
+### `--executable=[name]` alias `e`
 
-Define a specific port to run the extension server on. Defaults to 1337.
+Specify the name of the executable. Defaults to `google chrome`.
 
 ### `--silent` alias `s`
 

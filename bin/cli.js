@@ -18,7 +18,11 @@ class CLI {
     this.image = { path: '../extension/icon.png', type: 'image/png' }
     this.index = { path: '../extension/index.html', type: 'text/html' }
     this.caught = false
-    this.browser = `google chrome ${this.args.canary ? 'canary' : ''}`.trim()
+    this.browser = `${this.args.executable} ${this.args.canary ? 'canary' : ''}`.trim()
+    this.errors = {
+      process: 'Error: You must define a path to a node process directly or within your package.json under "main"',
+      nodemon: 'Error: nodemon is not installed'
+    }
   }
 
   get props () {
@@ -40,6 +44,11 @@ class CLI {
       .help('help')
       .usage('Usage: $0 -x [num]')
       .showHelpOnFail(false, 'Specify --help for available options')
+      .option('executable', {
+        alias: 'e',
+        describe: 'Specify the name of the executable.',
+        default: 'google chrome'
+      })
       .option('canary', {
         alias: 'c',
         describe: 'Run the devtools in canary.',
@@ -86,23 +95,33 @@ class CLI {
     }
   }
 
-  path () {
-    let file = path.relative(process.cwd(), 'package.json')
+  path (path) {
+    path = path | this.pkg(process.cwd())
+    path = (path && fs.lstatSync(path).isDirectory()) ? this.pkg(path) : path
+    if (path && fs.lstatSync(path).isFile()) {
+      return path
+    }
+    console.error(this.errors.process)
+    process.exit()
+  }
+
+  pkg (dir) {
+    let file = path.relative(dir, 'package.json')
     if (fs.existsSync(file)) {
       let config = JSON.parse(fs.readFileSync(file, 'utf8'))
       if (config.main) {
         return path.resolve(process.cwd(), config.main)
       }
     }
-    console.error(`You must define a path to a node process directly or within your package.json under 'main'`)
+    console.error(this.errors.process)
     process.exit()
   }
 
-  nodemon () {
-    let file = path.relative(process.cwd(), 'nodemon.json')
+  nodemon (dir) {
+    let file = path.relative(dir, 'nodemon.json')
     let cmd = 'nodemon'
     if (!this.exists('nodemon')) {
-      console.error('nodemon is not installed')
+      console.error(this.errors.nodemon)
       process.exit()
     }
     if (fs.existsSync(path)) {
@@ -113,13 +132,13 @@ class CLI {
   }
 
   exec () {
-    let path = (this.args._.length > 2) ? this.args._[2] : this.path()
+    let path = this.path(this.args._[2])
     let o = process.argv
     let legacy = (compare(process.version, '8.0.0') === -1)
     let brk = (legacy) ? 'debug-brk' : 'inspect-brk'
     let cmd = (this.args.brk) ? brk : 'inspect'
     let args = o.splice(o.indexOf(path), o.length).join(' ').replace(path, '')
-    let binary = (this.args.nodemon) ? this.nodemon() : 'node'
+    let binary = (this.args.nodemon) ? this.nodemon(process.cwd()) : 'node'
     if (this.args.inspectPort) {
       let flag = (legacy) ? 'debug' : 'inspect-port'
       cmd += ` --${flag}=${this.args.inspectPort}`
