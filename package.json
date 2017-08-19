@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/index.test.js ./test/server.js --test args --port 5000",
+    "test": "mocha ./test/index.test.js ./test/server.js --test args",
     "lint": "eslint .",
     "admin": "node ./scripts/admin.js"
   },
