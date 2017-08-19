@@ -26,6 +26,7 @@
     "bdd-stdin": "0.2.0",
     "casual": "^1.5.14",
     "chai": "4.1.1",
+    "cz-conventional-changelog": "^2.0.0",
     "eslint": "4.5.0",
     "eslint-config-standard": "10.2.1",
     "eslint-plugin-import": "2.7.0",
@@ -66,6 +67,9 @@
         "npm run lint",
         "npm test"
       ]
+    },
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   },
   "dependencies": {
