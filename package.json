@@ -21,7 +21,7 @@
   "devDependencies": {
     "alex": "^4.1.0",
     "babel-core": "6.26.0",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.0.0",
     "babel-preset-es2015": "6.24.1",
     "bdd-stdin": "0.2.0",
     "casual": "^1.5.14",
