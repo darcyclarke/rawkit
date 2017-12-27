@@ -34,7 +34,7 @@
     "eslint-plugin-promise": "3.5.0",
     "eslint-plugin-standard": "3.0.1",
     "mocha": "3.5.1",
-    "pre-git": "3.16.0",
+    "pre-git": "3.17.0",
     "standard-version": "4.2.0"
   },
   "keywords": [
