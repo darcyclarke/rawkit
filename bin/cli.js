@@ -11,7 +11,7 @@ const compare = require('semver-compare')
 
 class CLI {
   constructor (args) {
-    this.parseArguments(args)
+    this.args = this.parseArguments(args)
     this.prefix = 'ws://'
     this.chrome = '/Applications/Google Chrome.app'
     this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
@@ -33,7 +33,7 @@ class CLI {
   }
 
   parseArguments (args) {
-    this.args = yargs
+    let ret = yargs
       .version()
       .demandCommand(1)
       .usage('rawkit [options] <file ...>')
@@ -75,6 +75,7 @@ class CLI {
         boolean: true
       })
       .parse(args)
+    return ret
   }
 
   parseURL (str) {

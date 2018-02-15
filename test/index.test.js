@@ -1,8 +1,12 @@
 /* global describe, it */
 
+const path = require('path')
 const expect = require('chai').expect
-const args = process.argv
-const rawkit = require('../bin/cli')(args)
+const args = [process.argv[0], path.resolve(__dirname, '../index.js'), path.resolve(__dirname, './server.js'), '--test=args']
+console.log('args>>>', args)
+const CLI = require('../bin/cli')
+const rawkit = CLI(args)
+console.log(rawkit)
 
 describe('rawkit', () => {
   // TODO:
@@ -17,6 +21,10 @@ describe('rawkit', () => {
   // - should detect url
   // - should parse url
   // - should start a child process
+
+  it('should exist', () => {
+    expect(typeof rawkit).to.equal('object')
+  })
 
   it('should handle arguments', () => {
     expect(rawkit.args.test).to.equal('args')
