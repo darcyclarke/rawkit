@@ -17,6 +17,12 @@
 $ npm i rawkit -g
 ```
 
+or
+
+```bash
+$ yarn global add rawkit
+```
+
 ### Run
 
 ```bash
