@@ -3,10 +3,8 @@
 const path = require('path')
 const expect = require('chai').expect
 const args = [process.argv[0], path.resolve(__dirname, '../index.js'), path.resolve(__dirname, './server.js'), '--test=args']
-console.log('args>>>', args)
 const CLI = require('../bin/cli')
 const rawkit = CLI(args)
-console.log(rawkit)
 
 describe('rawkit', () => {
   // TODO:
