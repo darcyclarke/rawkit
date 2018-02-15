@@ -28,14 +28,14 @@
     "chai": "4.1.2",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "4.11.0",
-    "eslint-config-standard": "10.2.1",
+    "eslint-config-standard": "11.0.0-beta.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-node": "5.2.0",
     "eslint-plugin-promise": "3.5.0",
     "eslint-plugin-standard": "3.0.1",
     "mocha": "3.5.1",
-    "pre-git": "3.16.0",
-    "standard-version": "4.2.0"
+    "pre-git": "3.17.0",
+    "standard-version": "4.3.0"
   },
   "keywords": [
     "inspect",
@@ -73,8 +73,8 @@
     }
   },
   "dependencies": {
-    "opn": "5.1.0",
+    "opn": "5.2.0",
     "semver-compare": "1.0.0",
-    "yargs": "9.0.1"
+    "yargs": "10.1.1"
   }
 }
