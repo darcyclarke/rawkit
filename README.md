@@ -22,6 +22,10 @@ $ npm i rawkit -g
 ```bash
 $ rawkit index.js
 ```
+or utilizing [`npx`](https://www.npmjs.com/package/npx)
+```bash
+$ npx rawkit example.js
+```
 
 ### Don't want to install the Chrome Extension?
 
