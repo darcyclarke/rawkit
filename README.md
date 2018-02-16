@@ -11,7 +11,7 @@
 
 **rawkit** grabs the chrome inspector URL returned from the `node --inspect` command and immediately opens devtools. No more *clicking*, *selecting*, *copying*/*pasting* or *navigating*. Just run the command and jump into debugging.
 
-### Installation
+## Installation
 
 ```bash
 $ npm i rawkit -g
@@ -21,7 +21,7 @@ or
 $ yarn global add rawkit
 ```
 
-### Run
+## Run
 
 ```bash
 $ rawkit example.js
