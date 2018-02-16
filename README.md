@@ -24,7 +24,7 @@ $ yarn global add rawkit
 ### Run
 
 ```bash
-$ rawkit index.js
+$ rawkit example.js
 ```
 or utilizing [`npx`](https://www.npmjs.com/package/npx)
 ```bash
@@ -37,40 +37,52 @@ $ npx rawkit example.js
 
 - ✅ Works offline
 - ✅ Supports Mac, Windows & Linux
-- ✅ Supports with `nodemon`
-- ✅ Supports legacy node `v4.x` & `v6.x` implementations/protocols
-- ✅ Supports legacy Chrome devtools implementations/protocols
+- ✅ Support for `nodemon`
+- ✅ Supports legacy node `v4.x` & `v6.x` implementations & debugging protocols
+- ✅ Supports legacy Chrome devtools implementations & debugging protocols
 
 ## Options
 
 By default, running `rawkit` can detect any `main` script that's been defined in the current working directory's `package.json` and run that. It also will detect the version of Node.js you're running to determine whether or not to fallback to older `debug` APIs.
 
-### `--inspect-brk` alias `brk`
+#### `--inspect-brk` alias `brk`
 
 To break on the first line of the application code.
 
-### `--inspect-port` alias `p`
+```bash
+$ rawkit example.js --inspect-brk
+```
+
+#### `--inspect-port` alias `p`
 
 The debugger port. Defaults to 9229.
 
-### `--canary` alias `c`
+```bash
+$ rawkit example.js --inspect-port=1337
+```
+
+#### `--canary` alias `c`
 
 Open the devtools in canary.
 
-### `--nodemon` alias `nm`
+```bash
+$ rawkit example.js --canary
+```
+
+#### `--nodemon` alias `nm`
 
 Use [`nodemon`](https://github.com/remy/nodemon) to run/watch your node process & reload when files change. **rawkit** supports all the default configuration options for `nodemon` including `execMap` inside our project's `package.json` or `nodemon.json` files.
 
 **Example**
 ```bash
-$ rawkit --nodemon -e js,jade server.js
+$ rawkit example.js --nodemon
 ```
 
-### `--silent` alias `s`
+#### `--silent` alias `s`
 
 Hide stdout/stderr output from child process in the terminal window.
 
-### `--executable=[name]` alias `e`
+#### `--executable=[name]` alias `e`
 
 Specify the name of the executable. Defaults to `google chrome`.
 
