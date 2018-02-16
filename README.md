@@ -16,9 +16,7 @@
 ```bash
 $ npm i rawkit -g
 ```
-
 or
-
 ```bash
 $ yarn global add rawkit
 ```
@@ -47,25 +45,43 @@ To break on the first line of the application code.
 
 The debugger port. Defaults to 9229.
 
-### `--executable=[name]` alias `e`
+### `--canary` alias `c`
 
-Specify the name of the executable. Defaults to `google chrome`.
+Open the devtools in canary.
+
+### `--nodemon` alias `n`
+
+Use [`nodemon`](https://github.com/remy/nodemon) to run/watch your node process & reload when files change. **rawkit** supports all the default configuration options for `nodemon` including `execMap` inside our project's `package.json` or `nodemon.json` files.
+
+**Example**
+```bash
+$ rawkit --nodemon -e js,jade server.js
+```
 
 ### `--silent` alias `s`
 
 Hide stdout/stderr output from child process in the terminal window.
 
-### `--canary` alias `c`
+### `--executable=[name]` alias `e`
 
-Open the devtools in canary.
+Specify the name of the executable. Defaults to `google chrome`.
+
+> **Note:** `--executable` is an experimental feature as rawkit typically does all the work to determine the right executable to use based on your operating system and any other arguments or environmental configuration.
 
 ## FAQ
+
+### Chrome opens to a blank page?
+You may have some issues if your version of Chrome has recently updated and it and/or your OS hasn't be restarted. Quick fix here is to just try restarting Chrome and/or restarting your machine. This was identified in the [`opn`](https://github.com/sindresorhus/opn/issues/83) project.
 
 ### Should this be in node core?
 *Maybe*. A flag like `--launch` would be a nice supplement to `--inspect`. That said...
 
-### Why do I need to install a Chrome Extension?
+### Do I need to install a Chrome Extension?
 
-**rawkit** will automatically launch a splash page asking you to install a corresponding Chrome Extension the first time you run it. Unfortunately, this is a requirement to be able to open the debugging window/tab. Read more below:
+**rawkit** will automatically launch a splash page asking you to install a corresponding Chrome Extension the first time you run it. If you don't want to install the extension, and are on a Mac, you can install [chrome-cli](https://github.com/prasmussen/chrome-cli) to get around this. **rawkit** will automatically detect if `chrome-cli` exists on your machine and use that to open/launch chrome once it's installed.
 
-*Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/blob/master/RESEARCH.md) for more information. You can also use something like this [lighthouse/chrome-launcher](https://github.com/GoogleChrome/lighthouse/tree/master/chrome-launcher).*
+```bash
+$ brew install chrome-cli
+```
+
+*Unfortunately, opening internal Chrome links, externally, is not possible without an aid at the moment (ie. urls that contain `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/blob/master/RESEARCH.md) for more information. You can also use something like this [lighthouse/chrome-launcher](https://github.com/GoogleChrome/lighthouse/tree/master/chrome-launcher).*

@@ -13,6 +13,17 @@ chrome.browserAction.onClicked.addListener(function (tab) {
   chrome.tabs.create({ url: 'chrome-devtools://devtools/bundled/inspector.html?nodeFrontend=true&v8only=true&dockSide=undocked&experiments=true' })
 })
 
+chrome.runtime.onInstalled.addListener(function () {
+  chrome.tabs.query({ url: '*://darcyclarke.github.io/rawkit/*' }, function (tabs) {
+    if(tabs.length >= 1) {
+      for (let i = tabs.length - 1; i >= 0; i--) {
+        var link = parse(tabs[i].url)
+        chrome.tabs.update(tabs[i].id, { url: decodeURIComponent(link) })
+      }
+    }
+  })
+})
+
 chrome.tabs.onCreated.addListener(function () {
   chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
     var url = tabs[0].url
@@ -30,7 +41,7 @@ chrome.tabs.onCreated.addListener(function () {
         if (!id) {
           chrome.tabs.update(parent, { url: decodeURIComponent(link) })
         } else {
-          chrome.tabs.update(id, {selected: true})
+          chrome.tabs.update(id, { selected: true })
         }
       })
     }

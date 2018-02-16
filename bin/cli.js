@@ -5,6 +5,7 @@ const opn = require('opn')
 const path = require('path')
 const exec = require('child_process').exec
 const execSync = require('child_process').execSync
+const spawn = require('child_process').spawn
 const yargs = require('yargs')
 const getos = require('getos')
 const semver = require('semver')
@@ -14,7 +15,6 @@ class CLI {
   constructor (args) {
     this.args = this.parseArguments(args)
     this.prefix = 'ws://'
-    this.chrome = '/Applications/Google Chrome.app'
     this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
     this.image = { path: '../extension/icon.png', type: 'image/png' }
     this.index = { path: '../extension/index.html', type: 'text/html' }
@@ -55,7 +55,7 @@ class CLI {
       })
       .option('nodemon', {
         alias: 'nm',
-        describe: 'Use nodemon to automatically reload your application .',
+        describe: 'Use nodemon to automatically reload your application.',
         boolean: true
       })
       .option('inspect-brk', {
@@ -166,14 +166,22 @@ class CLI {
             this.args.executable = 'google chrome canary'
           }
         }
-        let opts = {
-          app: this.args.executable,
-          wait: false
+        if (this.exists('chrome-cli') && false) {
+          let chrome = spawn('chrome-cli', [ 'open', ref ])
+          execSync(`open -a "/Applications/Google Chrome${this.args.canary ? ' Canary' : ''}.app"`)
+          chrome.stdout.on('data', _ => {})
+          chrome.stderr.on('data', _ => {})
+          chrome.on('close', _ => {})
+        } else {
+          console.log('link>>>', link)
+          let opts = {
+            app: this.args.executable,
+            wait: false
+          }
+          opn(link, opts)
+            .then(() => {})
+            .catch((e) => {})
         }
-        console.log(link, opts)
-        opn(link, opts)
-          .then(() => {})
-          .catch((e) => {})
         if (!this.args.silent) {
           console.log('\x1b[33m%s\x1b[0m', 'Devtools URL:', ref)
         }
