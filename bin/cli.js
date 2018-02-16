@@ -5,9 +5,10 @@ const opn = require('opn')
 const path = require('path')
 const exec = require('child_process').exec
 const execSync = require('child_process').execSync
-const spawn = require('child_process').spawn
 const yargs = require('yargs')
-const compare = require('semver-compare')
+const getos = require('getos')
+const semver = require('semver')
+const version = require('../package').version
 
 class CLI {
   constructor (args) {
@@ -18,7 +19,6 @@ class CLI {
     this.image = { path: '../extension/icon.png', type: 'image/png' }
     this.index = { path: '../extension/index.html', type: 'text/html' }
     this.caught = false
-    this.browser = `${this.args.executable} ${this.args.canary ? 'canary' : ''}`.trim()
     this.errors = {
       process: 'Error: You must define a path to a node process directly or within your package.json under "main"',
       nodemon: 'Error: nodemon is not installed'
@@ -27,18 +27,17 @@ class CLI {
 
   get props () {
     return {
-      args: this.args,
-      browser: this.browser
+      args: this.args
     }
   }
 
   parseArguments (args) {
-    let ret = yargs
+    return yargs
       .version()
       .demandCommand(1)
       .usage('rawkit [options] <file ...>')
       .alias('v', 'version')
-      .version(() => require('../package').version)
+      .version(version)
       .describe('v', 'show version information')
       .alias('h', 'help')
       .help('help')
@@ -75,7 +74,6 @@ class CLI {
         boolean: true
       })
       .parse(args)
-    return ret
   }
 
   parseURL (str) {
@@ -97,7 +95,7 @@ class CLI {
   }
 
   path (path) {
-    path = path | this.pkg(process.cwd())
+    path = path || this.pkg(process.cwd())
     path = (path && fs.lstatSync(path).isDirectory()) ? this.pkg(path) : path
     if (path && fs.lstatSync(path).isFile()) {
       return path
@@ -125,7 +123,7 @@ class CLI {
       console.error(this.errors.nodemon)
       process.exit()
     }
-    if (fs.existsSync(path)) {
+    if (fs.existsSync(file)) {
       let config = JSON.parse(fs.readFileSync(file, 'utf8'))
       return (config && config.execMap) ? config.execMap.js : cmd
     }
@@ -135,7 +133,7 @@ class CLI {
   exec () {
     let path = this.path(this.args._[2])
     let o = process.argv
-    let legacy = (compare(process.version, '8.0.0') === -1)
+    let legacy = semver.lt(semver.coerce(process.version), '8.0.0')
     let brk = (legacy) ? 'debug-brk' : 'inspect-brk'
     let cmd = (this.args.brk) ? brk : 'inspect'
     let args = o.splice(o.indexOf(path), o.length).join(' ').replace(path, '')
@@ -155,25 +153,31 @@ class CLI {
     let ref = this.parseURL(data)
     if (!this.caught && ref && !this.args['no-prompt']) {
       this.caught = true
-      if (this.exists('chrome-cli')) {
-        let chrome = spawn('chrome-cli', [ 'open', ref ])
-        execSync(`open -a "${this.chrome}"`)
-        chrome.stdout.on('data', _ => {})
-        chrome.stderr.on('data', _ => {})
-        chrome.on('close', _ => {})
-      } else {
+      getos((e, data) => {
         let link = `https://darcyclarke.github.io/rawkit/?rawkit=${encodeURIComponent(ref)}`
+        if (!e) {
+          if (data.os === 'win32') {
+            this.args.executable = 'chrome'
+          }
+          if (data.os === 'linux') {
+            this.args.executable = 'google-chrome'
+          }
+          if (data.os === 'darwin' && this.args.canary) {
+            this.args.executable = 'google chrome canary'
+          }
+        }
         let opts = {
-          app: [this.browser],
+          app: this.args.executable,
           wait: false
         }
+        console.log(link, opts)
         opn(link, opts)
           .then(() => {})
           .catch((e) => {})
-      }
-      if (!this.args.silent) {
-        console.log('\x1b[33m%s\x1b[0m', 'Devtools URL:', ref)
-      }
+        if (!this.args.silent) {
+          console.log('\x1b[33m%s\x1b[0m', 'Devtools URL:', ref)
+        }
+      })
     } else if (!this.args.silent) {
       process.stdout.write(data)
     }

@@ -4,6 +4,7 @@ const port = 8888
 
 server.on('request', (req, res) => {
   console.log('request', req)
+  console.log('hello')
   res.end('server is running...')
 }).listen(port)
 

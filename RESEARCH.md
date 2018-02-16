@@ -58,3 +58,29 @@ Great article by Eric Bidelman here: https://developers.google.com/web/updates/2
 #### Keys to the Chrome Extension approach:
 - Use `chrome.tabs.create({ url: '[insert chrome-specific link here]' })`
 - Put the above **inside** a user/browser action/listener (ex. `chrome.tabs.onCreated.addListener()` or `chrome.browserAction.onClicked.addListener()`)
+
+### Chrome CLI
+An old approach to checking if someone had installed [chrome-cli](https://github.com/prasmussen/chrome-cli) which no longer supports dynamically opening the devtools/debugger window (unfortunately).
+
+```js
+const execSync = require('child_process').execSync
+const spawn = require('child_process').spawn
+
+if (exists('chrome-cli')) {
+  let chrome = spawn('chrome-cli', [ 'open', ref ])
+  execSync(`open -a "${this.chrome}"`)
+  chrome.stdout.on('data', _ => {})
+  chrome.stderr.on('data', _ => {})
+  chrome.on('close', _ => {})
+}
+
+function exists (cmd) {
+  try {
+    let stdout = execSync(`command -v ${cmd} 2>/dev/null && { echo >&1 \'${cmd} found\'; exit 0; }`
+    )
+    return !!stdout
+  } catch (error) {
+    return false
+  }
+}
+```

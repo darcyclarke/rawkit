@@ -33,16 +33,6 @@ or utilizing [`npx`](https://www.npmjs.com/package/npx)
 $ npx rawkit example.js
 ```
 
-### Don't want to install the Chrome Extension?
-
-**Homebrew install [chrome-cli](https://github.com/prasmussen/chrome-cli)**
-
-```bash
-$ brew install chrome-cli
-```
-
-**rawkit** will automatically detect `chrome-cli` and use it over prompting to use the Chrome Extension. Unfortunately, Windows users will still have to go through that first option.
-
 <img src="https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif" width="100%" alt="tutorial">
 
 ## Options
@@ -73,5 +63,9 @@ Open the devtools in canary.
 
 ### Should this be in node core?
 *Maybe*. A flag like `--launch` would be a nice supplement to `--inspect`. That said...
+
+### Why do I need to install a Chrome Extension?
+
+**rawkit** will automatically launch a splash page asking you to install a corresponding Chrome Extension the first time you run it. Unfortunately, this is a requirement to be able to open the debugging window/tab. Read more below:
 
 *Opening internal Chrome links, externally, is not possible at the moment (ie. `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/blob/master/RESEARCH.md) for more information. You can also use something like this [lighthouse/chrome-launcher](https://github.com/GoogleChrome/lighthouse/tree/master/chrome-launcher).*
