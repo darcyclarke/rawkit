@@ -10,7 +10,8 @@
   "background": {
     "scripts": [
       "app.js"
-    ]
+    ],
+    "persistent": false
   },
   "icons": {
     "16": "icon-16.png",
@@ -24,7 +25,6 @@
     "activeTab",
     "tabs",
     "http://*/*",
-    "https://*/*",
-    "experimental"
+    "https://*/*"
   ]
 }
