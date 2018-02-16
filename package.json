@@ -1,6 +1,6 @@
 {
   "name": "rawkit",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Open chrome devtools debugger",
   "bin": {
     "rawkit": "index.js"
