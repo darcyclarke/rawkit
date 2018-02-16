@@ -14,6 +14,7 @@ const version = require('../package').version
 class CLI {
   constructor (args) {
     this.args = this.parseArguments(args)
+    this.options = /^(executable|canary|inspect-port|inspect-brk|silent|nodemon)$/
     this.prefix = 'ws://'
     this.devtools = 'chrome-devtools://devtools/bundled/inspector.html?experiments=true&v8only=true&ws='
     this.image = { path: '../extension/icon.png', type: 'image/png' }
@@ -94,18 +95,18 @@ class CLI {
     }
   }
 
-  path (path) {
-    path = path || this.pkg(process.cwd())
-    path = (path && fs.lstatSync(path).isDirectory()) ? this.pkg(path) : path
-    if (path && fs.lstatSync(path).isFile()) {
-      return path
+  file (location) {
+    location = location || this.pkg(process.cwd())
+    location = (location && fs.lstatSync(location).isDirectory()) ? this.pkg(location) : location
+    if (location && fs.lstatSync(location).isFile()) {
+      return location
     }
     console.error(this.errors.process)
     process.exit()
   }
 
-  pkg (dir) {
-    let file = path.relative(dir, 'package.json')
+  pkg (location) {
+    let file = path.relative(location, 'package.json')
     if (fs.existsSync(file)) {
       let config = JSON.parse(fs.readFileSync(file, 'utf8'))
       if (config.main) {
@@ -116,8 +117,8 @@ class CLI {
     process.exit()
   }
 
-  nodemon (dir) {
-    let file = path.relative(dir, 'nodemon.json')
+  nodemon (location) {
+    let file = path.relative(location, 'nodemon.json')
     let cmd = 'nodemon'
     if (!this.exists('nodemon')) {
       console.error(this.errors.nodemon)
@@ -131,18 +132,19 @@ class CLI {
   }
 
   exec () {
-    let path = this.path(this.args._[2])
+    let file = this.file(this.args._[2])
     let o = process.argv
     let legacy = semver.lt(semver.coerce(process.version), '8.0.0')
     let brk = (legacy) ? 'debug-brk' : 'inspect-brk'
     let cmd = (this.args.brk) ? brk : 'inspect'
-    let args = o.splice(o.indexOf(path), o.length).join(' ').replace(path, '')
+    let args = o.splice(o.indexOf(file), o.length).join(' ').replace(file, '')
+    args = args.split(' ').filter((v) => v.match(this.options)).join(' ')
     let binary = (this.args.nodemon) ? this.nodemon(process.cwd()) : 'node'
     if (this.args.inspectPort) {
       let flag = (legacy) ? 'debug' : 'inspect-port'
       cmd += ` --${flag}=${this.args.inspectPort}`
     }
-    this.child = exec(`${binary} --${cmd} ${args}`, { shell: true })
+    this.child = exec(`${binary} --${cmd} ${file} ${args}`, { shell: true })
     this.child.stdout.on('data', this.handle.bind(this))
     this.child.stderr.on('data', this.handle.bind(this))
     this.child.on('close', _ => process.exit())
@@ -173,7 +175,6 @@ class CLI {
           chrome.stderr.on('data', _ => {})
           chrome.on('close', _ => {})
         } else {
-          console.log('link>>>', link)
           let opts = {
             app: this.args.executable,
             wait: false
