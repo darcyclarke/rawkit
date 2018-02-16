@@ -33,6 +33,14 @@ $ npx rawkit example.js
 
 <img src="https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif" width="100%" alt="tutorial">
 
+## Features
+
+- ✅ Works offline
+- ✅ Supports Mac, Windows & Linux
+- ✅ Supports with `nodemon`
+- ✅ Supports legacy node `v4.x` & `v6.x` implementations/protocols
+- ✅ Supports legacy Chrome devtools implementations/protocols
+
 ## Options
 
 By default, running `rawkit` can detect any `main` script that's been defined in the current working directory's `package.json` and run that. It also will detect the version of Node.js you're running to determine whether or not to fallback to older `debug` APIs.
@@ -49,7 +57,7 @@ The debugger port. Defaults to 9229.
 
 Open the devtools in canary.
 
-### `--nodemon` alias `n`
+### `--nodemon` alias `nm`
 
 Use [`nodemon`](https://github.com/remy/nodemon) to run/watch your node process & reload when files change. **rawkit** supports all the default configuration options for `nodemon` including `execMap` inside our project's `package.json` or `nodemon.json` files.
 
