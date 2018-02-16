@@ -82,9 +82,17 @@ $ rawkit example.js --nodemon
 
 Hide stdout/stderr output from child process in the terminal window.
 
+```bash
+$ rawkit example.js --silent
+```
+
 #### `--executable=[name]` alias `e`
 
 Specify the name of the executable. Defaults to `google chrome`.
+
+```bash
+$ rawkit example.js --executable=firefox
+```
 
 > **Note:** `--executable` is an experimental feature as rawkit typically does all the work to determine the right executable to use based on your operating system and any other arguments or environmental configuration.
 
