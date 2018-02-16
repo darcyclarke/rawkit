@@ -66,8 +66,7 @@
       "pre-push": [
         "echo 'Pre-push checks...' && exit 0",
         "npm run lint",
-        "npm test",
-        "npm run bundle"
+        "npm test"
       ]
     },
     "commitizen": {
