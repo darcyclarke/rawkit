@@ -15,7 +15,7 @@ chrome.browserAction.onClicked.addListener(function (tab) {
 
 chrome.runtime.onInstalled.addListener(function () {
   chrome.tabs.query({ url: '*://darcyclarke.github.io/rawkit/*' }, function (tabs) {
-    if(tabs.length >= 1) {
+    if (tabs.length >= 1) {
       for (let i = tabs.length - 1; i >= 0; i--) {
         var link = parse(tabs[i].url)
         chrome.tabs.update(tabs[i].id, { url: decodeURIComponent(link) })

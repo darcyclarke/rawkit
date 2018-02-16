@@ -166,7 +166,7 @@ class CLI {
             this.args.executable = 'google chrome canary'
           }
         }
-        if (this.exists('chrome-cli') && false) {
+        if (this.exists('chrome-cli')) {
           let chrome = spawn('chrome-cli', [ 'open', ref ])
           execSync(`open -a "/Applications/Google Chrome${this.args.canary ? ' Canary' : ''}.app"`)
           chrome.stdout.on('data', _ => {})
