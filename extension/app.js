@@ -49,7 +49,7 @@ chrome.tabs.onCreated.addListener(function () {
           }
         }
         if (!id) {
-          chrome.tabs.update(parent, { url: decodeURIComponent(link) })
+          chrome.tabs.update(parent, { url: decodeURIComponent(parts.link) })
         } else {
           chrome.tabs.update(id, { selected: true })
         }
