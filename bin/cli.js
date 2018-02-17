@@ -153,10 +153,13 @@ class CLI {
 
   handle (data) {
     let ref = this.parseURL(data)
-    if (!this.caught && ref && !this.args['no-prompt']) {
-      this.caught = true
+    if (ref && !this.args['no-prompt']) {
+      let event = !this.caught ? 'start' : 'reload'
+      if (!this.caught) {
+        this.caught = true
+      }
       getos((e, data) => {
-        let link = `https://darcyclarke.github.io/rawkit/?rawkit=${encodeURIComponent(ref)}`
+        let link = `https://darcyclarke.github.io/rawkit/?url=${encodeURIComponent(ref)}&event=${event}`
         if (!e) {
           if (data.os === 'win32') {
             this.args.executable = 'chrome'

@@ -106,7 +106,7 @@ You may have some issues if your version of Chrome has recently updated and it a
 
 ### Do I need to install a Chrome Extension?
 
-**rawkit** will automatically launch a splash page asking you to install a corresponding Chrome Extension the first time you run it. If you don't want to install the extension, and are on a Mac, you can install [chrome-cli](https://github.com/prasmussen/chrome-cli) to get around this. **rawkit** will automatically detect if `chrome-cli` exists on your machine and use that to open/launch chrome once it's installed.
+**rawkit** will automatically launch a splash page asking you to install a corresponding Chrome Extension the first time you run it. If you don't want to install the extension (not recommended, as the extension comes with some nice-to-have behaviors) AND are using a Mac, you can install [chrome-cli](https://github.com/prasmussen/chrome-cli) to get around this. **rawkit** will automatically detect if `chrome-cli` exists on your machine and use that to open/launch chrome once it's installed.
 
 ```bash
 $ brew install chrome-cli

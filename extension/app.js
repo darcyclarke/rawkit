@@ -4,9 +4,19 @@ function isCore (url) {
   return -~url.indexOf('chrome://') || -~url.indexOf('chrome-devtools://')
 }
 
+function devtools (url) {
+  var a = document.createElement('a')
+  a.href = url
+  return a.hostname + ':' + a.port
+}
+
 function parse (url) {
-  var matches = url.match(/rawkit=([^&#=]*)/gi)
-  return (matches) ? matches[0].replace('rawkit=', '') : null
+  var link = url.match(/url=([^&#=]*)/gi)
+  var event = url.match(/event=([^&#=]*)/gi)
+  return {
+    link: (link) ? link[0].replace('url=', '') : null,
+    event: (event) ? event[0].replace('event=', '') : null
+  }
 }
 
 chrome.browserAction.onClicked.addListener(function (tab) {
@@ -27,13 +37,13 @@ chrome.runtime.onInstalled.addListener(function () {
 chrome.tabs.onCreated.addListener(function () {
   chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
     var url = tabs[0].url
-    var link = parse(url)
+    var parts = parse(url)
     var parent = tabs[0].id
-    if (!isCore(url) && link) {
+    if (!isCore(url) && parts.link) {
       chrome.tabs.query({}, function (tabs) {
         let id = null
         for (let i = chrome.tabs.length - 1; i >= 0; i--) {
-          if (tabs[i].url === url) {
+          if (tabs[i].url === url || devtools(tabs[i].url) === devtools(url)) {
             id = tabs[i].id
             break
           }
@@ -47,5 +57,3 @@ chrome.tabs.onCreated.addListener(function () {
     }
   })
 })
-
-// window.addEventListener('load', function () {})

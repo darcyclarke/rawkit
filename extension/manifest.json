@@ -25,6 +25,7 @@
     "activeTab",
     "tabs",
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "<all_urls>"
   ]
 }
