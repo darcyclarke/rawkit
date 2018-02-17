@@ -17,8 +17,8 @@ function parse (url) {
     return null
   }
   return {
-    link: (link) ? link[0].replace('url=', ''),
-    event: (event) ? event[0].replace('event=', '')
+    link: (link) ? link[0].replace('url=', '') : null,
+    event: (event) ? event[0].replace('event=', '') : null
   }
 }
 
