@@ -45,7 +45,7 @@ $ npx rawkit example.js
 
 By default, running `rawkit` can detect any `main` script that's been defined in the current working directory's `package.json` and run that. It also will detect the version of Node.js you're running to determine whether or not to fallback to older `debug` APIs.
 
-#### `--inspect-brk` alias `brk`
+#### `--inspect-brk`
 
 To break on the first line of the application code.
 
