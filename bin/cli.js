@@ -45,32 +45,26 @@ class CLI {
       .usage('Usage: $0 -x [num]')
       .showHelpOnFail(false, 'Specify --help for available options')
       .option('executable', {
-        alias: 'e',
         describe: 'Specify the name of the executable.',
         default: 'google chrome'
       })
       .option('canary', {
-        alias: 'c',
         describe: 'Run the devtools in canary.',
         boolean: true
       })
       .option('nodemon', {
-        alias: 'nm',
         describe: 'Use nodemon to automatically reload your application.',
         boolean: true
       })
       .option('inspect-brk', {
-        alias: 'brk',
         describe: 'To break on the first line of the application code.',
         boolean: true
       })
       .option('inspect-port', {
-        alias: 'p',
         describe: 'The debugger port. Defaults to 9229.',
         type: 'number'
       })
       .option('silent', {
-        alias: 's',
         describe: 'Hide stdout/stderr output from child process.',
         boolean: true
       })

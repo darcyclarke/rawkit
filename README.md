@@ -53,7 +53,7 @@ To break on the first line of the application code.
 $ rawkit example.js --inspect-brk
 ```
 
-#### `--inspect-port` alias `p`
+#### `--inspect-port`
 
 The debugger port. Defaults to 9229.
 
@@ -61,7 +61,7 @@ The debugger port. Defaults to 9229.
 $ rawkit example.js --inspect-port=1337
 ```
 
-#### `--canary` alias `c`
+#### `--canary`
 
 Open the devtools in canary.
 
@@ -69,7 +69,7 @@ Open the devtools in canary.
 $ rawkit example.js --canary
 ```
 
-#### `--nodemon` alias `nm`
+#### `--nodemon`
 
 Use [`nodemon`](https://github.com/remy/nodemon) to run/watch your node process & reload when files change. **rawkit** supports all the default configuration options for `nodemon` including `execMap` inside our project's `package.json` or `nodemon.json` files.
 
@@ -78,7 +78,7 @@ Use [`nodemon`](https://github.com/remy/nodemon) to run/watch your node process 
 $ rawkit example.js --nodemon
 ```
 
-#### `--silent` alias `s`
+#### `--silent`
 
 Hide stdout/stderr output from child process in the terminal window.
 
@@ -86,7 +86,7 @@ Hide stdout/stderr output from child process in the terminal window.
 $ rawkit example.js --silent
 ```
 
-#### `--executable=[name]` alias `e`
+#### `--executable=[name]`
 
 Specify the name of the executable. Defaults to `google chrome`.
 
