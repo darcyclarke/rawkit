@@ -13,9 +13,12 @@ function devtools (url) {
 function parse (url) {
   var link = url.match(/url=([^&#=]*)/gi)
   var event = url.match(/event=([^&#=]*)/gi)
+  if (!link || !event) {
+    return null
+  }
   return {
-    link: (link) ? link[0].replace('url=', '') : null,
-    event: (event) ? event[0].replace('event=', '') : null
+    link: (link) ? link[0].replace('url=', ''),
+    event: (event) ? event[0].replace('event=', '')
   }
 }
 
@@ -27,8 +30,8 @@ chrome.runtime.onInstalled.addListener(function () {
   chrome.tabs.query({ url: '*://darcyclarke.github.io/rawkit/*' }, function (tabs) {
     if (tabs.length >= 1) {
       for (let i = tabs.length - 1; i >= 0; i--) {
-        var link = parse(tabs[i].url)
-        chrome.tabs.update(tabs[i].id, { url: decodeURIComponent(link) })
+        var parts = parse(tabs[i].url)
+        chrome.tabs.update(tabs[i].id, { url: decodeURIComponent(parts.link) })
       }
     }
   })
@@ -39,7 +42,7 @@ chrome.tabs.onCreated.addListener(function () {
     var url = tabs[0].url
     var parts = parse(url)
     var parent = tabs[0].id
-    if (!isCore(url) && parts.link) {
+    if (parts && !isCore(url)) {
       chrome.tabs.query({}, function (tabs) {
         let id = null
         for (let i = chrome.tabs.length - 1; i >= 0; i--) {
