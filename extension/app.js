@@ -18,7 +18,8 @@ function sibling (url) {
   var id = null
   var decoded = decodeURIComponent(url)
   var ws = decoded.match(/ws=([^&#=]*)/gi)
-  for (var i = chrome.tabs.length - 1; i >= 0; i--) {
+  var tabs = chrome.tabs
+  for (var i = tabs.length - 1; i >= 0; i--) {
     var wsExists = isCore(tabs[i].url) && devtools(tabs[i].url) === devtools(ws)
     if (tabs[i].url === url || wsExists) {
       id = {
@@ -75,7 +76,7 @@ chrome.tabs.onCreated.addListener(function () {
           //   options.active = true
           // }
           chrome.tabs.update(tab.id, options)
-          chrome.tabs.remove(origin.id, function() {})
+          chrome.tabs.remove(origin.id, function () {})
         } else if (parts.event === 'start') {
           chrome.tabs.update(origin.id, options)
         }
