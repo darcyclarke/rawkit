@@ -6,6 +6,7 @@
 [![devDependency Status](https://david-dm.org/darcyclarke/rawkit/master/dev-status.svg)](https://david-dm.org/darcyclarke/rawkit/master?type=dev)
 [![Greenkeeper badge](https://badges.greenkeeper.io/darcyclarke/rawkit.svg)](https://greenkeeper.io/)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+[![Maintainability](https://api.codeclimate.com/v1/badges/dd7b6d6da202b56057dc/maintainability)](https://codeclimate.com/github/darcyclarke/rawkit/maintainability)
 
 # <img src="extension/icon.png" width="48" align="left">rawkit
 
