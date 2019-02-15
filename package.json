@@ -27,7 +27,7 @@
     "bdd-stdin": "0.2.0",
     "chai": "4.1.2",
     "cz-conventional-changelog": "^2.0.0",
-    "eslint": "5.0.0",
+    "eslint": "5.14.0",
     "eslint-config-standard": "11.0.0",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-node": "7.0.0",
