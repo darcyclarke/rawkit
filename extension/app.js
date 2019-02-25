@@ -1,14 +1,5 @@
 /* global chrome */
 
-function addRequire () {
-  console.log('hello!');
-  return ```
-  window.require = function (name) {
-    console.log('load module:', name)
-  }
-  ```
-}
-
 function isCore (url) {
   return -~url.indexOf('chrome://') || -~url.indexOf('chrome-devtools://')
 }
@@ -74,7 +65,7 @@ chrome.tabs.onCreated.addListener(function () {
     var origin = tabs[0]
     var url = origin.url
     var parts = parse(url)
-    chrome.tabs.executeScript(origin.id, { file: 'require.js' , allTabs: true }) 
+    chrome.tabs.executeScript(origin.id, { file: 'require.js', allTabs: true })
     if (isRawkit(url) && !isCore(url) && parts) {
       chrome.tabs.query({}, function (tabs) {
         var tab = sibling(url)
