@@ -41,6 +41,7 @@ $ npx rawkit example.js
 - ✅ Support for `nodemon`
 - ✅ Supports legacy node `v4.x` & `v6.x` implementations & debugging protocols
 - ✅ Supports legacy Chrome devtools implementations & debugging protocols
+- ✅ Supports node-like module `require`/`import` statements inside [snippets](https://developers.google.com/web/tools/chrome-devtools/snippets)
 
 ## Options
 

@@ -3,7 +3,7 @@
   "name": "rawkit",
   "author": "Darcy Clarke <darcy@darcyclarke.me>",
   "description": "Open the node.js devtools from the command-line; no more clicking, selecting or copy & pasting.",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "homepage_url": "https://github.com/darcyclarke/rawkit",
   "incognito": "spanning",
   "offline_enabled": true,
