@@ -77,7 +77,7 @@
     "getos": "^3.1.1",
     "opn": "5.4.0",
     "semver": "^5.6.0",
-    "yargs": "13.2.1"
+    "yargs": "13.2.2"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
