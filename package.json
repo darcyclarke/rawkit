@@ -76,7 +76,7 @@
   "dependencies": {
     "getos": "^3.1.1",
     "opn": "6.0.0",
-    "semver": "^5.6.0",
+    "semver": "^6.0.0",
     "yargs": "13.2.2",
     "extend": "^3.0.2",
     "deep-extend": "^0.6.0",
