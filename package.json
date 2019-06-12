@@ -1,6 +1,6 @@
 {
   "name": "rawkit",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Open chrome devtools debugger",
   "bin": {
     "rawkit": "index.js"
@@ -74,13 +74,13 @@
     }
   },
   "dependencies": {
+    "debug": "^4.1.1",
+    "deep-extend": "^0.6.0",
+    "extend": "^3.0.2",
     "getos": "^3.1.1",
     "opn": "6.0.0",
     "semver": "^6.1.1",
-    "yargs": "13.2.4",
-    "extend": "^3.0.2",
-    "deep-extend": "^0.6.0",
-    "debug": "^4.1.1"
+    "yargs": "13.2.4"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
