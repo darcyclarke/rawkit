@@ -66,8 +66,8 @@
     "pre-git": {
       "pre-push": [
         "echo 'Pre-push checks...' && exit 0",
-        "npm run lint",
-        "npm test",
+        "yarn run lint",
+        "yarn test",
         "NODE_ENV=production yarn"
       ]
     },
