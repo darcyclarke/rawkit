@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>rawkit launch...</title>
+    <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/poapmlldjpcgenaedpopfjjagnihpkim">
     <link rel="icon" type="image/png" href="icon.png" />
     <style type="text/css">
       html, body {
@@ -23,26 +24,36 @@
         align-items: center;
         justify-content: center;
       }
-      a {
+      button {
         text-decoration: none;
-        margin-top: 10%;
+        margin-top: 5%;
         padding: 20px;
         border: none;
         font-size: 18px;
         border-radius: 5px;
         color: white;
-        opacity: 0;
         background: #4285f4;
         text-align: center;
+        margin-bottom: 5%;
         transition: background 0.3s, padding 0.3s, opacity 1s;
       }
-      a:hover {
+      button:hover {
         cursor: pointer;
         background: #3773D5;
         padding: 25px;
       }
-      a.visible {
+      a {
+        color: #666666;
+        font-size: 14px;
+        text-decoration: none;
+        text-align: center;
+        line-height: 180%;
+      }
+      .visible {
         opacity: 1;
+      }
+      .inline {
+        opacity: 0;
       }
       .image {
         border-radius: 50%;
@@ -143,11 +154,12 @@
       <div class="yellow"></div>
       <div class="green"></div>
     </div>
-    <a href="https://chrome.google.com/webstore/detail/rawkit/poapmlldjpcgenaedpopfjjagnihpkim?authuser=1" id="install-button">Click to add <strong>rawkit</strong> to Chrome</a>
+    <button id="install-button" class="install" onclick="chrome.webstore.install()">Click to add <strong>rawkit</strong> to Chrome</button>
+    <a href="https://chrome.google.com/webstore/detail/poapmlldjpcgenaedpopfjjagnihpkim" class="install">Or, manually install at:<br><strong>https://chrome.google.com/webstore/detail/poapmlldjpcgenaedpopfjjagnihpkim</strong></a>
     <script type="text/javascript">
       window.onload = function () {
         if (!chrome.app.isInstalled) {
-          document.querySelector('#install-button').classList.add('visible');
+          Array.from(document.querySelectorAll('.install'))forEach(el => el.classList.add('visible'));
         }
       }
     </script>
