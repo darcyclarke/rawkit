@@ -1471,9 +1471,9 @@ currently-unhandled@^0.4.1:
     array-find-index "^1.0.1"
 
 cuss@^1.11.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/cuss/-/cuss-1.15.0.tgz#85fcd5e8106d69d5681faeaefc0d2f1df558f412"
-  integrity sha512-Pll6Kqz5G4t+3tpnTtmUqJASVDm468TgVHPwhMJzVmyf7xz7g73lShPHCIurzjU0v+ASbcVv22q/auDlTHqqoA==
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/cuss/-/cuss-1.16.0.tgz#7da59e7c130efe545be212ac23f743a95bc03f13"
+  integrity sha512-VtYrZxNqRWLd/z3a57ezUv9WLR0l0n0qmYA5O9QBepliUWlEvRgBUnfZO6bZK29KocssaZ6ks7EistDLYPFWhA==
 
 cz-conventional-changelog@1.1.5:
   version "1.1.5"
@@ -1694,7 +1694,7 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.2, escape-string-regexp@^1
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-standard@12.0.0:
+eslint-config-standard@^12.0.0:
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-12.0.0.tgz#638b4c65db0bd5a41319f96bba1f15ddad2107d9"
   integrity sha512-COUz8FnXhqFitYj4DTqHzidjIL/t4mumGZto5c7DrBpvWoie+Sn3P4sLEzUGeYhRElWuFEf8K1S1EfvD1vixCQ==
