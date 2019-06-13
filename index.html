@@ -52,7 +52,7 @@
       .visible {
         opacity: 1;
       }
-      .inline {
+      .install {
         opacity: 0;
       }
       .image {
@@ -159,7 +159,7 @@
     <script type="text/javascript">
       window.onload = function () {
         if (!chrome.app.isInstalled) {
-          Array.from(document.querySelectorAll('.install'))forEach(el => el.classList.add('visible'));
+          Array.from(document.querySelectorAll('.install')).forEach(el => el.classList.add('visible'));
         }
       }
     </script>
