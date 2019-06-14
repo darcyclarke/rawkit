@@ -14,9 +14,10 @@
 $ npm install -g rawkit
 ...
 $ rawkit example.js
+```
 
-# or
-
+#### With [npx](https://www.npmjs.com/package/npx)
+```bash
 $ npx rawkit example.js
 ```
 
