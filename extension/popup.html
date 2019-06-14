@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style></style>
+</head>
+<body>
+  <h1></h1>
+  <ul>
+    <li><a href=""><span class="host">localhost</span><span class="port">1337</span></a></li>
+  </ul>
+  <script type="text/javascript">
+    const prop = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+    const store = (chrome && !!prop(['storage', 'local'], chrome)) ? chrome.storage.local : browser.storage.local
+    store.get(['instances'], (data) => {
+
+    })
+
+  </script>
+</body>
+</html>

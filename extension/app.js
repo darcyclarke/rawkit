@@ -1,26 +1,36 @@
-/* global chrome */
+/* global chrome, navigator */
 
-function isCore (url) {
+const prop = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o)
+const store = (chrome && !!prop(['storage', 'local'], chrome)) ? chrome.storage.local : browser.storage.local
+const timeout = 500
+const id = `poapmlldjpcgenaedpopfjjagnihpkim`
+const home = `chrome.google.com/webstore/detail/rawkit/${id}/`
+const install = 'darcyclarke.github.io/rawkit/'
+const launch = `chrome-extension://${id}/launch.html`
+const devtools = 'chrome-devtools://devtools/bundled/inspector.html?nodeFrontend=true&v8only=true&dockSide=undocked&experiments=true'
+var instances = []
+
+function isCore(url) {
   return -~url.indexOf('chrome://') || -~url.indexOf('chrome-devtools://')
 }
 
-function isRawkit (url) {
-  return -~url.indexOf('darcyclarke.github.io/rawkit/')
+function isRawkit(url) {
+  return -~url.indexOf(install)
 }
 
-function devtools (url) {
+function getLocation(url) {
   var a = document.createElement('a')
   a.href = url
   return a.hostname + ':' + a.port
 }
 
-function sibling (url) {
+function sibling(url) {
   var id = null
   var decoded = decodeURIComponent(url)
   var ws = decoded.match(/ws=([^&#=]*)/gi)
   var tabs = chrome.tabs
   for (var i = tabs.length - 1; i >= 0; i--) {
-    var wsExists = isCore(tabs[i].url) && devtools(tabs[i].url) === devtools(ws)
+    var wsExists = isCore(tabs[i].url) && getLocation(tabs[i].url) === getLocation(ws)
     if (tabs[i].url === url || wsExists) {
       id = {
         id: tabs[i].id,
@@ -32,7 +42,46 @@ function sibling (url) {
   return id
 }
 
-function parse (url) {
+// Update badge
+function updateBadge (instances) {
+  chrome.browserAction.setBadgeBackgroundColor('#000000')
+  const text = (instances.length > 1) ? data.instances.length : ''
+  chrome.browserAction.setBadgeText({text: text})
+}
+
+// Update popup
+function updatePopup (instances) {
+  const popup = (instances.length > 1) ? 'popup.html' : ''
+  chrome.browserAction.setPopup({popup: popup})
+}
+
+// Check if an instance has died
+function updateInstances() {
+  store.get(['instances'], (data) => {
+    if (data.instances && typeof data.instances === 'array') {
+      data.instances.forEach((instance) => {
+
+      })
+    }
+    setTimeout(updateInstances, timeout)
+  })
+}
+
+// Find launch pages & redirect them to devtools
+function redirectLaunchPages(installed) {
+  const url = (installed) ? launch : `*://${install}*`
+  chrome.tabs.query({ url: url }, function (tabs) {
+    if (tabs.length >= 1) {
+      tabs.forEach((tab) => {
+        var parts = parse(tab.url)
+        chrome.tabs.update(tab.id, { url: decodeURIComponent(parts.link), active: true })
+      })
+    }
+  })
+}
+
+// Parse a url returning link + event
+function parse(url) {
   var link = url.match(/url=([^&#=]*)/gi)
   var event = url.match(/event=([^&#=]*)/gi)
   if (!link || !event) {
@@ -44,20 +93,14 @@ function parse (url) {
   }
 }
 
+// When extension is clicked
 chrome.browserAction.onClicked.addListener(function (tab) {
-  chrome.tabs.create({ url: 'chrome-devtools://devtools/bundled/inspector.html?nodeFrontend=true&v8only=true&dockSide=undocked&experiments=true' })
+  chrome.tabs.create({ url: devtools })
 })
 
+// On Extension Installation
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.tabs.query({ url: '*://darcyclarke.github.io/rawkit/*' }, function (tabs) {
-    if (tabs.length >= 1) {
-      for (var i = tabs.length - 1; i >= 0; i--) {
-        var parts = parse(tabs[i].url)
-        chrome.tabs.update(tabs[i].id, { url: decodeURIComponent(parts.link), active: true })
-        break
-      }
-    }
-  })
+  updateInstances()
 })
 
 chrome.tabs.onCreated.addListener(function () {

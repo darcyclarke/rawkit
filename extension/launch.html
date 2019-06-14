@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rawkit launch...</title>
+    <link rel="icon" type="image/png" href="icon.png" />
+    <style type="text/css">
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: white;
+      }
+      body {
+        font-family: sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .loader {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #install-button {
+        text-decoration: none;
+        margin-top: 10%;
+        padding: 20px;
+        border: none;
+        font-size: 18px;
+        border-radius: 5px;
+        color: white;
+        background: #4285f4;
+        text-align: center;
+        margin-bottom: 5%;
+        transition: background 0.3s, padding 0.3s, opacity 1s;
+      }
+      #install-button:hover {
+        cursor: pointer;
+        background: #3773D5;
+        padding: 25px;
+      }
+      #install-link {
+        color: #666666;
+        font-size: 14px;
+        text-decoration: none;
+        text-align: center;
+        line-height: 180%;
+      }
+      .install {
+        display: none;
+      }
+      .install.visible {
+        display: block;
+      }
+      .image {
+        border-radius: 50%;
+        overflow: hidden;
+        display: block;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 10%;
+        position: relative;
+      }
+      .image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+      }
+      .blue, .red, .yellow, .green {
+        width: 40px;
+        height: 40px;
+        background: #4285f4;
+        border-radius: 20px;
+        animation-name: blue;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        transform-origin: center;
+      }
+      .red {
+        margin-left: 25px;
+        background: #EA4335;
+        animation-name: red;
+      }
+      .yellow {
+        margin-left: 25px;
+        background: #FBBC05;
+        animation-name: yellow;
+      }
+      .green {
+        margin-left: 25px;
+        background: #34A853;
+        animation-name: green;
+      }
+      @keyframes blue {
+        0% {
+          transform: translate(0px, 0px);
+        }
+        30% {
+          transform: translate(0px, -13px);
+        }
+        100% {
+          transform: translate(0px, 0px);
+        }
+      }
+
+      @keyframes red {
+        0% {
+          transform: translate(0px, 0px);
+        }
+        40% {
+          transform: translate(0px, -13px);
+        }
+        100% {
+          transform: translate(0px, 0px);
+        }
+      }
+      @keyframes yellow {
+        0% {
+          transform: translate(0px, 0px);
+        }
+        50% {
+          transform: translate(0px, -13px);
+        }
+        100% {
+          transform: translate(0px, 0px);
+        }
+      }
+      @keyframes green {
+        0% {
+          transform: translate(0px, 0px);
+        }
+        60% {
+          transform: translate(0px, -13px);
+        }
+        100% {
+          transform: translate(0px, 0px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image">
+      <img src="icon.png" alt="rawkit logo" />
+    </div>
+    <div class="loader">
+      <div class="blue"></div>
+      <div class="red"></div>
+      <div class="yellow"></div>
+      <div class="green"></div>
+    </div>
+  </body>
+</html>
