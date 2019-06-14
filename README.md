@@ -11,13 +11,13 @@
 ## Installation & Usage
 
 ```bash
-npm install -g rawkit
+$ npm install -g rawkit
 ...
-rawkit example.js
+$ rawkit example.js
 
 # or
 
-npx rawkit example.js
+$ npx rawkit example.js
 ```
 
 <img src="https://user-images.githubusercontent.com/459713/29084045-d01c953a-7c38-11e7-9711-a2875d81f1c1.gif" width="100%" alt="tutorial">
@@ -68,7 +68,7 @@ You may have some issues if your version of Chrome has recently updated and it a
 **rawkit** will automatically launch a splash page asking you to install a corresponding Chrome Extension the first time you run it. If you don't want to install the extension (not recommended, as the extension comes with some nice-to-have behaviors) AND are using a Mac, you can install [chrome-cli](https://github.com/prasmussen/chrome-cli) to get around this. **rawkit** will automatically detect if `chrome-cli` exists on your machine and use that to open/launch chrome once it's installed.
 
 ```bash
-brew install chrome-cli
+$ brew install chrome-cli
 ```
 
 > **Note:** Unfortunately, opening internal Chrome links, externally, is not possible without an aid at the moment (ie. urls that contain `chrome://` or `chrome-devtools://` in this case). This is most likely a security feature. That said, you can use a Chrome Extension as a proxy to make this work. Check out the [RESEARCH.md](https://github.com/darcyclarke/rawkit/blob/master/RESEARCH.md) for more information.
