@@ -11,7 +11,9 @@
     "lint": "eslint .",
     "ext:bundle": "node ./scripts/bundle.js",
     "ext:publish": "source .env && cd ./src/ && webstore upload --source=../dist/build-$npm_package_version.zip --auto-publish --extension-id $WS_ID --client-id $WS_CLIENT_ID --client-secret $WS_CLIENT_SECRET --refresh-token $WS_REFRESH_TOKEN",
-    "ext:edit": "open https://chrome.google.com/webstore/developer/dashboard"
+    "ext:edit": "open https://chrome.google.com/webstore/developer/dashboard",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "publishConfig": {
     "access": "public"
@@ -82,9 +84,11 @@
     "getos": "^3.1.1",
     "opn": "6.0.0",
     "semver": "^6.2.0",
-    "yargs": "13.2.4"
+    "yargs": "13.2.4",
+    "snyk": "^1.189.0"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
-  }
+  },
+  "snyk": true
 }
