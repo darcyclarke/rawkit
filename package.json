@@ -31,7 +31,7 @@
     "bdd-stdin": "0.2.0",
     "chai": "4.2.0",
     "chrome-launcher": "^0.11.0",
-    "cz-conventional-changelog": "^2.1.0",
+    "cz-conventional-changelog": "^3.0.0",
     "eslint": "6.0.1",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "2.18.1",
