@@ -24,17 +24,17 @@
   },
   "devDependencies": {
     "alex": "^7.1.0",
-    "archiver": "^3.0.0",
+    "archiver": "^3.0.3",
     "babel-core": "6.26.3",
     "babel-eslint": "^10.0.2",
     "babel-preset-es2015": "6.24.1",
     "bdd-stdin": "0.2.0",
     "chai": "4.2.0",
-    "chrome-launcher": "^0.11.0",
-    "cz-conventional-changelog": "^3.0.0",
+    "chrome-launcher": "^0.11.1",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "6.1.0",
     "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-import": "2.18.1",
+    "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "9.1.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.0",
@@ -85,7 +85,7 @@
     "opn": "6.0.0",
     "semver": "^6.2.0",
     "yargs": "13.3.0",
-    "snyk": "^1.189.0"
+    "snyk": "^1.197.0"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
