@@ -72,16 +72,16 @@ class CLI {
   }
 
   parseURL (str) {
-    let re = /(\b(ws?|chrome-devtools):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
-    let matches = str.match(re)
-    let link = (matches) ? matches[0] : null
-    let isNew = link && link.indexOf(this.prefix) >= 0
+    const re = /(\b(ws?|chrome-devtools):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
+    const matches = str.match(re)
+    const link = (matches) ? matches[0] : null
+    const isNew = link && link.indexOf(this.prefix) >= 0
     return (isNew) ? `${this.devtools}${link.replace(this.prefix, '')}` : link
   }
 
   exists (cmd) {
     try {
-      let stdout = execSync(`command -v ${cmd} 2>/dev/null && { echo >&1 \'${cmd} found\'; exit 0; }`
+      const stdout = execSync(`command -v ${cmd} 2>/dev/null && { echo >&1 \'${cmd} found\'; exit 0; }`
       )
       return !!stdout
     } catch (error) {
@@ -100,9 +100,9 @@ class CLI {
   }
 
   pkg (location) {
-    let file = path.relative(location, 'package.json')
+    const file = path.relative(location, 'package.json')
     if (fs.existsSync(file)) {
-      let config = JSON.parse(fs.readFileSync(file, 'utf8'))
+      const config = JSON.parse(fs.readFileSync(file, 'utf8'))
       if (config.main) {
         return path.resolve(process.cwd(), config.main)
       }
@@ -112,30 +112,30 @@ class CLI {
   }
 
   nodemon (location) {
-    let file = path.relative(location, 'nodemon.json')
-    let cmd = 'nodemon'
+    const file = path.relative(location, 'nodemon.json')
+    const cmd = 'nodemon'
     if (!this.exists('nodemon')) {
       console.error(this.errors.nodemon)
       process.exit()
     }
     if (fs.existsSync(file)) {
-      let config = JSON.parse(fs.readFileSync(file, 'utf8'))
+      const config = JSON.parse(fs.readFileSync(file, 'utf8'))
       return (config && config.execMap) ? config.execMap.js : cmd
     }
     return cmd
   }
 
   exec () {
-    let file = this.file(this.args._[2])
-    let o = process.argv
-    let legacy = semver.lt(semver.coerce(process.version), '8.0.0')
-    let brk = (legacy) ? 'debug-brk' : 'inspect-brk'
+    const file = this.file(this.args._[2])
+    const o = process.argv
+    const legacy = semver.lt(semver.coerce(process.version), '8.0.0')
+    const brk = (legacy) ? 'debug-brk' : 'inspect-brk'
     let cmd = (this.args.brk) ? brk : 'inspect'
     let args = o.splice(o.indexOf(file), o.length).join(' ').replace(file, '')
     args = args.split(' ').filter((v) => v.match(this.options)).join(' ')
-    let binary = (this.args.nodemon) ? this.nodemon(process.cwd()) : 'node'
+    const binary = (this.args.nodemon) ? this.nodemon(process.cwd()) : 'node'
     if (this.args.inspectPort) {
-      let flag = (legacy) ? 'debug' : 'inspect-port'
+      const flag = (legacy) ? 'debug' : 'inspect-port'
       cmd += ` --${flag}=${this.args.inspectPort}`
     }
     this.child = exec(`${binary} --${cmd} ${file} ${args}`, { shell: true })
@@ -146,14 +146,14 @@ class CLI {
   }
 
   handle (data) {
-    let ref = this.parseURL(data)
+    const ref = this.parseURL(data)
     if (ref && !this.args['no-prompt']) {
-      let event = !this.caught ? 'start' : 'reload'
+      const event = !this.caught ? 'start' : 'reload'
       if (!this.caught) {
         this.caught = true
       }
       getos((e, data) => {
-        let link = `https://darcyclarke.github.io/rawkit/?url=${encodeURIComponent(ref)}&event=${event}`
+        const link = `https://darcyclarke.github.io/rawkit/?url=${encodeURIComponent(ref)}&event=${event}`
         if (!e) {
           if (data.os === 'win32') {
             this.args.executable = 'chrome'
@@ -166,13 +166,13 @@ class CLI {
           }
         }
         if (this.exists('chrome-cli')) {
-          let chrome = spawn('chrome-cli', [ 'open', ref ])
+          const chrome = spawn('chrome-cli', ['open', ref])
           execSync(`open -a "/Applications/Google Chrome${this.args.canary ? ' Canary' : ''}.app"`)
           chrome.stdout.on('data', _ => {})
           chrome.stderr.on('data', _ => {})
           chrome.on('close', _ => {})
         } else {
-          let opts = {
+          const opts = {
             app: this.args.executable,
             wait: false
           }

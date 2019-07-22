@@ -4,8 +4,8 @@ const archiver = require('archiver')
 const version = require('../extension/manifest.json').version
 const file = path.resolve(__dirname, `../dist/extension-${version}.zip`)
 
-let output = fs.createWriteStream(file)
-let archive = archiver('zip', {
+const output = fs.createWriteStream(file)
+const archive = archiver('zip', {
   zlib: { level: 9 }
 })
 
