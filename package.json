@@ -71,7 +71,7 @@
         "echo 'Pre-push checks...' && exit 0",
         "npm run lint",
         "npm test",
-        "NODE_ENV=production npm"
+        "NODE_ENV=production"
       ]
     },
     "commitizen": {
