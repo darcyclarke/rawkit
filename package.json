@@ -32,12 +32,12 @@
     "chai": "4.2.0",
     "chrome-launcher": "^0.11.1",
     "cz-conventional-changelog": "^3.0.2",
-    "eslint": "6.1.0",
+    "eslint": "6.2.0",
     "eslint-config-standard": "^14.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "9.1.0",
     "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-standard": "4.0.0",
+    "eslint-plugin-standard": "4.0.1",
     "mocha": "6.2.0",
     "pre-git": "3.17.1",
     "standard-version": "7.0.0"
@@ -84,7 +84,7 @@
     "getos": "^3.1.1",
     "opn": "6.0.0",
     "semver": "^6.2.0",
-    "yargs": "13.3.0",
+    "yargs": "14.0.0",
     "snyk": "^2.0.0"
   },
   "release": {
