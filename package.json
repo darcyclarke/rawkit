@@ -23,7 +23,7 @@
     "url": "git+https://github.com/darcyclarke/rawkit.git"
   },
   "devDependencies": {
-    "alex": "^7.1.0",
+    "alex": "^8.0.0",
     "archiver": "^3.0.3",
     "babel-core": "6.26.3",
     "babel-eslint": "^10.0.2",
@@ -85,7 +85,7 @@
     "opn": "6.0.0",
     "semver": "^6.2.0",
     "yargs": "14.2.0",
-    "snyk": "^1.217.1"
+    "snyk": "^1.231.0"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
