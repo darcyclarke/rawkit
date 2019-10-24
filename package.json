@@ -85,7 +85,7 @@
     "opn": "6.0.0",
     "semver": "^6.2.0",
     "yargs": "14.0.0",
-    "snyk": "^1.217.1"
+    "snyk": "^1.231.0"
   },
   "release": {
     "analyzeCommits": "simple-commit-message"
