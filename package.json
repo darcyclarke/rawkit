@@ -32,7 +32,7 @@
     "chai": "4.2.0",
     "chrome-launcher": "^0.11.1",
     "cz-conventional-changelog": "^3.0.2",
-    "eslint": "6.5.0",
+    "eslint": "6.6.0",
     "eslint-config-standard": "^14.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "10.0.0",
